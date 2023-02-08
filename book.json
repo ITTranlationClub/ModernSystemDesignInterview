@@ -1,0 +1,70 @@
+{
+    "title": "现代系统设计面试指南",
+    "description": "北美很火的系统架构师面试课程,网上有很多学习总结文档,不过大多介绍的不详细;出于团队想法编译成书,能帮到你的话,我们会非常高兴 (●'◡'●)",
+    "author": "IT小菜鸡搬运社",
+    "output.name": "site",
+    "language": "zh-hans",
+    "plugins": [
+        "page-toc-button",
+        "page-treeview",
+        "back-to-top-button",
+        "splitter",
+        "code",
+        "-lunr", 
+        "-search", 
+        "search-pro",
+        "-sharing", 
+        "-sharing-plus",
+        "pageview-count",
+        "auto-scroll-table",
+        "popup",  
+        "custom-favicon",
+        "scroll-to-top",
+        "anchors",
+        "klipse",
+        "-highlight",
+        "prism",
+        "insert-logo",
+        "tbfed-pagefooter",
+        "flexible-alerts"
+    ],
+    "pluginsConfig": {
+        "hide-element": {
+            "elements": [".gitbook-link"]
+        },
+        "tbfed-pagefooter": {
+            "copyright": "Copyright &copy IT小菜鸡搬运社 2023",
+            "modify_label": "该文章修订时间：",
+            "modify_format": "YYYY-MM-DD"
+        },
+        "insert-logo": {
+            "url": "https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/炼狱幸寿郎.jpg",
+            "style": "background: none"
+        },
+        "flexible-alerts": {
+          "style": "flat",
+          "note": {
+            "label": "重点"
+          },
+          "tip": {
+            "label": "建议"
+          },
+          "warning": {
+            "label": "注意事项"
+          },
+          "danger": {
+            "label": "危险"
+          },
+        "question": {
+            "label": "问题",
+            "icon": "fa fa-question-circle",
+            "className": "info"
+        },
+        "comment": {
+            "label": "评论",
+            "icon": "fa fa-comments",
+            "className": "info"
+        }
+    }
+    }
+}
