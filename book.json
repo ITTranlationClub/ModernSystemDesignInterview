@@ -18,7 +18,6 @@
         "pageview-count",
         "auto-scroll-table",
         "popup",  
-        "custom-favicon",
         "scroll-to-top",
         "anchors",
         "klipse",
@@ -38,7 +37,7 @@
             "modify_format": "YYYY-MM-DD"
         },
         "insert-logo": {
-            "url": "https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/炼狱幸寿郎.jpg",
+            "url": "https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/damotouicon.ico",
             "style": "background: none"
         },
         "flexible-alerts": {
