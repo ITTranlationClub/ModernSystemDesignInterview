@@ -5,35 +5,31 @@
     "output.name": "site",
     "language": "zh-hans",
     "plugins": [
-        "page-toc-button",
-        "page-treeview",
+    	"ancre-navigation",
         "back-to-top-button",
-        "splitter",
-        "code",
-        "-lunr", 
-        "-search", 
+        "page-toc-button",
+        "expandable-chapters",
+        "chapter-fold",
+        "anchor-navigation-ex",
+        "favicon",
+        "-lunr",
+        "-search",
         "search-pro",
-        "-sharing", 
-        "-sharing-plus",
         "pageview-count",
-        "auto-scroll-table",
-        "popup",  
-        "scroll-to-top",
-        "anchors",
-        "klipse",
-        "-highlight",
-        "prism",
-        "insert-logo",
         "tbfed-pagefooter",
         "flexible-alerts"
     ],
     "pluginsConfig": {
+    	"anchor-navigation-ex":{
+    		"showLevel":false,
+    		"showGoTop":false
+    	},
         "hide-element": {
             "elements": [".gitbook-link"]
         },
         "tbfed-pagefooter": {
             "copyright": "Copyright &copy IT小菜鸡搬运社 2023",
-            "modify_label": "该文章修订时间：",
+            "modify_label": "文章修订时间：",
             "modify_format": "YYYY-MM-DD"
         },
         "insert-logo": {
