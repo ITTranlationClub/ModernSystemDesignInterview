@@ -1,25 +1,42 @@
 {
     "title": "现代系统设计面试指南",
-    "description": "北美很火的系统架构师面试课程,网上有很多学习总结文档,不过大多介绍的不详细;出于团队想法编译成书,能帮到你的话,我们会非常高兴 (●'◡'●)",
+    "description": "北美很火的系统架构师面试课程,网上有很多学习总结文档,不过大多介绍的不详细;出于共同进步的想法编译成书,能帮到你的话,我们会非常高兴 (●'◡'●)",
     "author": "IT小菜鸡搬运社",
     "output.name": "site",
     "language": "zh-hans",
     "plugins": [
+    	"accordion",
+    	"ace",
+    	"anchor-navigation-ex",
     	"ancre-navigation",
         "back-to-top-button",
+        "change_girls",
+        "code",
+        "expandable-chapters",
         "page-toc-button",
         "expandable-chapters",
-        "chapter-fold",
-        "anchor-navigation-ex",
         "favicon",
+        "insert-logo",
+        "search-plus",
+        "sharing-plus",
+        "tbfed-pagefooter",
+        "flexible-alerts",
         "-lunr",
         "-search",
         "search-pro",
-        "pageview-count",
-        "tbfed-pagefooter",
-        "flexible-alerts"
+        "pageview-count"
     ],
     "pluginsConfig": {
+    	"change_girls" : {
+            "time" : 60,
+            "urls" : [
+                "https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/beauty1.png",
+                "https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/beauty2.png",
+                "https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/beauty3.png",
+           		"https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E.jpg",
+           		"https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/%E5%B9%BD%E7%81%B5%E5%85%AC%E4%B8%BB.jpg"
+            ]
+        },
     	"anchor-navigation-ex":{
     		"showLevel":false,
     		"showGoTop":false
@@ -33,8 +50,8 @@
             "modify_format": "YYYY-MM-DD"
         },
         "insert-logo": {
-            "url": "https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/damotouicon.ico",
-            "style": "background: none"
+            "url": "images/logo.ico",
+            "style": "background: none; max-height: 100px; min-height: 100px"
         },
         "flexible-alerts": {
           "style": "flat",

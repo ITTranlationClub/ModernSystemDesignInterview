@@ -2,9 +2,7 @@
 
 <img src="https://img.shields.io/github/forks/ITTranlationClub/ModernSystemDesignInterview?style=social" />&nbsp;<img src="https://img.shields.io/github/watchers/ITTranlationClub/ModernSystemDesignInterview?style=social" />&nbsp;<img src="https://img.shields.io/github/stars/ITTranlationClub/ModernSystemDesignInterview?style=social" />
 
-**Grokking Modern System Design Interview For Engineers & Managers**
-
-搬运自北美著名系统设计课程.
+北美著名系统设计教程, 深受广大留学生喜爱
 
 通过本书, 您将获得：
 
