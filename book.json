@@ -46,9 +46,9 @@
         "mygitalk": {
         "clientID": "cbf6255de297433a5be5",
         "clientSecret": "5c8e3a0b85fe9b2b81682bee8e6f74f875541bec",
-        "repo": "ITTranlationClub",
-        "owner": "ModernSystemDesignInterview",
-        "admin": ["ModernSystemDesignInterview"],
+        "repo": "ModernSystemDesignInterview",
+        "owner": "ITTranlationClub",
+        "admin": ["ITTranlationClub"],
         "distractionFreeMode": false
         },
     	"anchor-navigation-ex":{
