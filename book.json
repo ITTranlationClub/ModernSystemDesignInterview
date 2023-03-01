@@ -77,16 +77,16 @@
           "danger": {
             "label": "危险"
           },
-        "question": {
+          "question": {
             "label": "问题",
             "icon": "fa fa-question-circle",
             "className": "info"
-        },
-        "comment": {
+          },
+          "comment": {
             "label": "评论",
             "icon": "fa fa-comments",
             "className": "info"
+          }
         }
-    }
     }
 }
