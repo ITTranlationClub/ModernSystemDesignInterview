@@ -1,3 +1,7 @@
+---
+typora-root-url: ..
+---
+
 # 将草稿式计算合理化
 
 学习如何在草稿式计算中使用适当的数字。
@@ -106,11 +110,30 @@ Facebook公开的数字现在已经过时。在下表中，我们描述了今天
 
 **CPU绑定：**用于计算CPU绑定请求RPS的简单公式如下： 
 
+```
+In this calculation, we use these terms:
+ : CPU bound RPS
+ : Number of CPU threads, which are also called hardware threads
+ : Number of CPU threads, which are also called hardware threads
+```
+
 ![搜狗截图20230406184701](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406184701.png)
 
 上述计算的基础是我们可以将一秒钟视为一个盒子，并计算有多少个小盒子（任务）能够适合在大盒子内完成，即每个CPU在一秒钟内能够完成的任务数。因此，更多的CPU/线程将导致更高的RPS。 
 
 **内存绑定请求：**对于内存绑定请求，我们使用以下公式： 
+
+```
+In this calculation, we use these terms:
+: Memory bound RPS
+: Total size of RAM
+: A worker in memory that manages a request
+```
+
+```
+Continuing our box analogy from the explanation of CPU-bound processes, here we first calculate the number of boxes there are (how many memory-bound processes a server can host) and then how many mini-boxes (tasks) we can fit in each of the bigger boxes.
+A service receives both the CPU-bound and memory-bound requests. Considering the case that half the requests are CPU-bound and the other half memory-bound, we can handle a total of
+```
 
 ![搜狗截图20230406184714](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406184714.png)
 
