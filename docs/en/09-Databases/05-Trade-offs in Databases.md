@@ -78,9 +78,39 @@ Communication assumptions are the following:
 
 #### Parameters assumption
 
+```
+Before processing the query using different approaches, let’s define some parameters:
+
+ Total access delay
+
+ Data rate
+
+ Total data volume
+
+Now, let’s compute the total communication time, 
+
+, according to the following formula:
+
+Let’s try the following possible approaches to execute the query.
+```
+
 ![QQ截图20230407115248](/img/09-Databases/QQ截图20230407115248.png)
 
 #### Possible approaches
+
+```
+Move the Product table to site A and process the query at A.
+
+Here, 0.1 is the access delay of the table on site A, and 100,000 is the number of tuples in the Product table. The size of each tuple in bits is 200, and 50,000,000 is the data rate. The 200 and 50,000,000 figures are the same for all of the following calculations.
+
+Move Store and Sales to site B and process the query at B:
+
+Here, 0.2 is the access delay of the Store and Product tables. The numbers 10,000 and 1,000,000 are the number of tuples in the Store and Product tables, respectively.
+
+Restrict Brand at site B to Wolf (called selection) and move the result to site A:
+
+Here, 0.1 is the access delay of the Product table. The number of the Wolf brand is 10, hence the number of tuples.
+```
 
 ![QQ截图20230407115258](/img/09-Databases/QQ截图20230407115258.png)
 

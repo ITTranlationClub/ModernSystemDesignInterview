@@ -10,9 +10,21 @@ Learn how to resolve conflicts via versioning and how to make the key-value stor
 
 When network partitions and node failures occur during an update, an object’s version history might become fragmented. As a result, it requires a reconciliation effort on the part of the system. It’s necessary to build a way that explicitly accepts the potential of several copies of the same data so that we can avoid the loss of any updates. It’s critical to realize that some failure scenarios can lead to multiple copies of the same data in the system. So, these copies might be the same or divergent. Resolving the conflicts among these divergent histories is essential and critical for consistency purposes.
 
-![QQ截图20230408182005](/img/10-Key-value Store/QQ截图20230408182005.png)
+![QQ截图20230413214150](/img/10-Key-value Store/QQ截图20230413214150.png)
 
 Two nodes replicating their data while handling requests
+
+![QQ截图20230413214205](/img/10-Key-value Store/QQ截图20230413214205.png)
+
+The network connection between two nodes breaks
+
+![QQ截图20230413214215](/img/10-Key-value Store/QQ截图20230413214215.png)
+
+Both nodes continue handling the requests
+
+![QQ截图20230413214230](/img/10-Key-value Store/QQ截图20230413214230.png)
+
+The connection is restored, but the data in both nodes isn’t necessarily the same
 
 To handle inconsistency, we need to maintain causality between the events. We can do this using the timestamps and update all conflicting values with the value of the latest request. But time isn’t reliable in a distributed system, so we can’t use it as a deciding factor.
 
@@ -53,6 +65,27 @@ To update an object in the key-value store, the client must give the `context`. 
 > **Note**: This process of resolving conflicts is comparable to how it’s done in Git. If Git is able to merge multiple versions into one, merging is performed automatically. It’s up to the client (the developer) to resolve conflicts manually if automatic conflict resolution is not possible. Along the same lines, our system can try automatic conflict resolution and, if not possible, ask the application to provide a final resolved value.
 
 ### Vector clock usage example
+
+```
+Let’s consider an example. Say we have a write operation request. Node 
+ handles the first version of the write request, 
+; where 
+ means event. The corresponding vector clock has node information and its counter—that is, 
+ handles another write for the same object on which the previous write was performed. So, for 
+, we have 
+ is no longer required because 
+ was updated on the same node. 
+ reads the changes made by 
+, and then new changes are made. Suppose a network partition happens. Now, the request is handled by two different nodes, 
+. The context with updated versions, which are 
+, and their related clocks, which are 
+, are now in the system.
+
+Suppose the network partition is repaired, and the client requests a write again, but now we have conflicts. The context 
+ of the conflicts are returned to the client. After the client does reconciliation and 
+ coordinates the write, we have 
+ with the clock 
+```
 
 ![QQ截图20230408182234](/img/10-Key-value Store/QQ截图20230408182234.png)
 

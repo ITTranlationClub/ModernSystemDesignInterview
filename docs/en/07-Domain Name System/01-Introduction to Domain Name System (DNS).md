@@ -10,7 +10,7 @@ Learn how domain names get translated to IP addresses through DNS.
 
 Let’s consider the example of a mobile phone where a unique number is associated with each user. To make calls to friends, we can initially try to memorize some of the phone numbers. However, as the number of contacts grows, we’ll have to use a phone book to keep track of all our contacts. This way, whenever we need to make a call, we’ll refer to the phone book and dial the number we need.
 
-Similarly, computers are uniquely identified by IP addresses—for example, `104.18.2.119` is an IP address. We use IP addresses to visit a website hosted on a machine. Since humans cannot easily remember IP addresses to visit domain names (an example domain name being [educative.io](http://educative.io/)), we need a phone book-like repository that can maintain all mappings of domain names to IP addresses. In this chapter, we’ll see how DNS serves as the Internet’s phone book.
+Similarly, computers are uniquely identified by IP addresses—for example, `104.18.2.119` is an IP address. We use IP addresses to visit a website hosted on a machine. Since humans cannot easily remember IP addresses to visit domain names (an example domain name being `educative.io`), we need a phone book-like repository that can maintain all mappings of domain names to IP addresses. In this chapter, we’ll see how DNS serves as the Internet’s phone book.
 
 ![QQ截图20230406204411](/img/07-Domain Name System/QQ截图20230406204411.png)
 
@@ -22,7 +22,33 @@ The **domain name system (DNS)** is the Internet’s naming service that maps hu
 
 The slides below show the high-level flow of the working of DNS:
 
-![QQ截图20230406204505](/img/07-Domain Name System/QQ截图20230406204505.png)
+![QQ截图20230413200715](/img/07-Domain Name System/QQ截图20230413200715.png)
+
+The user requests to visit a website by entering its URL in the browser
+
+![QQ截图20230413200736](/img/07-Domain Name System/QQ截图20230413200736.png)
+
+The browser requests the ISP to forward the DNS query to resolve the request for the IP address
+
+![QQ截图20230413200759](/img/07-Domain Name System/QQ截图20230413200759.png)
+
+The ISP forwards the DNS query to the DNS infrastructure
+
+![QQ截图20230413200820](/img/07-Domain Name System/QQ截图20230413200820.png)
+
+The DNS infrastructure responds with a list of IP addresses against the domain name
+
+![QQ截图20230413200840](/img/07-Domain Name System/QQ截图20230413200840.png)
+
+The IP address(es) reach the browser
+
+![QQ截图20230413200903](/img/07-Domain Name System/QQ截图20230413200903.png)
+
+The browser sends an HTTP request on the received IP address
+
+![QQ截图20230413200921](/img/07-Domain Name System/QQ截图20230413200921.png)
+
+The ISP forwards the HTTP request to the web server
 
 The entire operation is performed very quickly. Therefore, the end user experiences minimum delay. We’ll also see how browsers save some of the frequently used mappings for later use in the next lesson.
 

@@ -33,22 +33,69 @@ Now, we’ll discuss how the domain name system (DNS) can perform GSLB.
 
 We understand that DNS can respond with multiple IP addresses for a DNS query. In the lesson on [DNS](https://www.educative.io/collection/page/10370001/4941429335392256/5728619204182016), we discussed that it’s possible to do load balancing through DNS while looking at the output of `nslookup`. DNS uses a simple technique of reordering the list of IP addresses in response to each DNS query. Therefore, different users get a reordered IP address list. It results in users visiting a different server to entertain their requests. In this way, DNS distributes the load of requests on different data centers. This is performing GSLB. In particular, DNS uses round-robin to perform load balancing as shown below:
 
-* The user from ISP 1 requests the DNS infrastructure for the IP address of a service
-* DNS responds with the IP address of data center 1
-* The user sends a request to data center 1
-* The user from ISP 1 gets served at data center 1
-* The user from ISP 2 requests the DNS infrastructure for the IP address of the same service
-* DNS responds with the IP address of data center 2 and does GSLB
-* The user sends a request to data center 2
-* The user from ISP 2 gets served at data center 2
-* The user from ISP 3 requests the DNS infrastructure for the IP address of the same service
-* DNS responds with the IP address of data center 3 and does GSLB
-* The user sends a request to data center 3
-* The user from ISP 3 gets served at data center 3
-* The user from ISP 4 requests the DNS infrastructure for the IP address of the same service
-* DNS responds with the IP address of data center 1 and does GSLB in round-robin fashion
-* The user sends a request to data center 1
-* The user from ISP 4 gets served at data center 1
+![QQ截图20230413210003](/img/08-Load Balancers/QQ截图20230413210003.png)
+
+The user from ISP 1 requests the DNS infrastructure for the IP address of a service
+
+![QQ截图20230413210014](/img/08-Load Balancers/QQ截图20230413210014.png)
+
+DNS responds with the IP address of data center 1
+
+![QQ截图20230413210027](/img/08-Load Balancers/QQ截图20230413210027.png)
+
+The user sends a request to data center 1
+
+![QQ截图20230413210044](/img/08-Load Balancers/QQ截图20230413210044.png)
+
+The user from ISP 1 gets served at data center 1
+
+![QQ截图20230413210058](/img/08-Load Balancers/QQ截图20230413210058.png)
+
+The user from ISP 2 requests the DNS infrastructure for the IP address of the same service
+
+![QQ截图20230413210112](/img/08-Load Balancers/QQ截图20230413210112.png)
+
+DNS responds with the IP address of data center 2 and does GSLB
+
+![QQ截图20230413210134](/img/08-Load Balancers/QQ截图20230413210134.png)
+
+The user sends a request to data center 2
+
+![QQ截图20230413210150](/img/08-Load Balancers/QQ截图20230413210150.png)
+
+The user from ISP 2 gets served at data center 2
+
+![QQ截图20230413210204](/img/08-Load Balancers/QQ截图20230413210204.png)
+
+The user from ISP 3 requests the DNS infrastructure for the IP address of the same service
+
+![QQ截图20230413210231](/img/08-Load Balancers/QQ截图20230413210231.png)
+
+DNS responds with the IP address of data center 3 and does GSLB
+
+![QQ截图20230413210252](/img/08-Load Balancers/QQ截图20230413210252.png)
+
+The user sends a request to data center 3
+
+![QQ截图20230413210315](/img/08-Load Balancers/QQ截图20230413210315.png)
+
+The user from ISP 3 gets served at data center 3
+
+![QQ截图20230413210336](/img/08-Load Balancers/QQ截图20230413210336.png)
+
+The user from ISP 4 requests the DNS infrastructure for the IP address of the same service
+
+![QQ截图20230413210355](/img/08-Load Balancers/QQ截图20230413210355.png)
+
+DNS responds with the IP address of data center 1 and does GSLB in round-robin fashion
+
+![QQ截图20230413210411](/img/08-Load Balancers/QQ截图20230413210411.png)
+
+The user sends a request to data center 1
+
+![QQ截图20230413210431](/img/08-Load Balancers/QQ截图20230413210431.png)
+
+The user from ISP 4 gets served at data center 1
 
 As shown above, round-robin in DNS forwards clients to data centers in a strict circular order. However, round-robin has the following limitations:
 

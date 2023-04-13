@@ -64,11 +64,33 @@ These days, we’ll find many third-party public DNS resolvers offered by Google
 
 The slideshow below demonstrates the power of caching in the DNS:
 
-![QQ截图20230406205301](/img/07-Domain Name System/QQ截图20230406205301.png)
+![QQ截图20230413204931](/img/07-Domain Name System/QQ截图20230413204931.png)
 
-![搜狗截图20230406205330](../img/07-Domain Name System/搜狗截图20230406205330.png)
+The user requests to visit a URL, and the browser has cached the domain name to IP address mapping
 
+![QQ截图20230413204948](/img/07-Domain Name System/QQ截图20230413204948.png)
 
+Here’s what happens if the browser hasn't cached the domain to IP address mapping. The next hierarchy that can have the mapping is the OS
+
+![QQ截图20230413205001](/img/07-Domain Name System/QQ截图20230413205001.png)
+
+If the OS doesn't have the mapping, the local DNS resolver can have the cached response
+
+![QQ截图20230413205012](/img/07-Domain Name System/QQ截图20230413205012.png)
+
+If the local DNS resolver doesn't have the mapping, the ISP can have a cached response
+
+![QQ截图20230413205028](/img/07-Domain Name System/QQ截图20230413205028.png)
+
+Finally, the DNS infrastructure will respond with the IP
+
+![QQ截图20230413205043](/img/07-Domain Name System/QQ截图20230413205043.png)
+
+The cache will be updated at each hierarchy
+
+![QQ截图20230413205110](/img/07-Domain Name System/QQ截图20230413205110.png)
+
+The browser now has updated cache so the user request will get served locally
 
 > **Note:** Even if there is no cache available to resolve a user’s query and it’s imperative to visit the DNS infrastructure, caching can still be beneficial. The local server or ISP DNS resolver can cache the IP addresses of TLD servers or authoritative servers and avoid requesting the root-level server.
 
@@ -133,7 +155,11 @@ The following slide deck highlights some important aspects of `nslookup` and `di
 
 ![QQ截图20230406205439](/img/07-Domain Name System/QQ截图20230406205439.png)
 
-![QQ截图20230406205451](../img/07-Domain Name System/QQ截图20230406205451.png)
+The output of nslookup www.google.com
+
+![QQ截图20230406205451](/img/07-Domain Name System/QQ截图20230406205451.png)
+
+Output of dig www.google.com
 
 Let’s go through the meaning of the output:
 
@@ -144,8 +170,13 @@ Let’s go through the meaning of the output:
 
 ### The `dig` output
 
+```
+The 300 value in the ANSWER SECTION represents the number of seconds the cache is maintained in the DNS resolver. This means that Google’s ADNS keeps a TTL value of five minutes
+```
+
 - The `Query time: 4 msec` represents the time it takes to get a response from the DNS server. For various reasons, these numbers may be different in our case.
-- The `300` value in the *`ANSWER SECTION`* represents the number of seconds the cache is maintained in the DNS resolver. This means that Google’s ADNS keeps a TTL value of five minutes (300 ���6060300 *sec*).
+
+  ![QQ截图20230413205631](/img/07-Domain Name System/QQ截图20230413205631.png)
 
 > **Note:** We invite you to test different services for their TTL and query times to strengthen your understanding. You may use the above terminal for this purpose.
 
@@ -157,4 +188,4 @@ If we need DNS to tell us which IP to reach a website or service, how will we kn
 
 Hide Answer
 
-End users’ operating systems have configuration files (`/etc/resolv.conf` in Linux) with the DNS resolvers’ IP addresses, which in turn obtain all information for them. (Often, DHCP provides the default DNS resolver IP address along with other configurations.) The end-systems request DNS resolves for any DNS queries. DNS resolvers have special software installed to resolve queries through the DNS infrastructure. The root server’s IP addresses are within the special software. Typically, the Berkeley Internet Name Domain (BIND) software is used on DNS resolvers. The [InterNIC](https://www.internic.net/domain/named.root) maintains the updated list of 13 root servers.So, we break the chicken-and-egg problem by seeding each resolver with a priori knowledge of root DNS servers (whose IPs rarely change).
+End users’ operating systems have configuration files (`/etc/resolv.conf` in Linux) with the DNS resolvers’ IP addresses, which in turn obtain all information for them. (Often, DHCP provides the default DNS resolver IP address along with other configurations.) The end-systems request DNS resolves for any DNS queries. DNS resolvers have special software installed to resolve queries through the DNS infrastructure. The root server’s IP addresses are within the special software. Typically, the Berkeley Internet Name Domain (BIND) software is used on DNS resolvers. The `InterNIC` maintains the updated list of 13 root servers.So, we break the chicken-and-egg problem by seeding each resolver with a priori knowledge of root DNS servers (whose IPs rarely change).

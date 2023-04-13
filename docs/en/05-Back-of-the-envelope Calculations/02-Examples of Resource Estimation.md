@@ -27,6 +27,13 @@ Let’s make the following assumptions about a Twitter-like service.
 
 <center>Show Detailed Calculation</center>
 
+```
+Total requests per second
+requests per second which is the RPS for our system.
+For the number of servers,
+servers to handle all requests.
+```
+
 ![搜狗截图20230406182708](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406182708.png)
 
 Indeed, the number above doesn’t seem right. If we only need 15 commodity servers to serve 500M daily users, then why do big services use millions of servers in a data center? The primary reason for this is that the RPS is not enough to estimate the number of servers required to provide a service. Also, we made some underlying assumptions in the calculations above. One of the assumptions was that a request is handled by one server only. In reality, requests go through to web servers that may interact with application servers that may also request data from storage servers. Each server may take a different amount of time to handle each request. Furthermore, each request may be handled differently depending upon the state of the data center, the application, and the request itself. Remember that we have a variety of servers for providing various services within a data center.
@@ -78,6 +85,15 @@ Then, the following storage space will be required:
 
 <center>Show Detailed Calculation</center>
 
+```
+Total tweets
+Storage required for tweets in one day
+Storage required for 10 percent images for one day
+Storage required for 5 percent video content for one day
+Total storage required for one day
+Storage required for one year
+```
+
 ![搜狗截图20230406182839](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406182839.png)
 
 > ![搜狗截图20230406183718](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406183718.png)
@@ -107,6 +123,16 @@ In order to estimate the bandwidth requirements for a service, we use the follow
 ![搜狗截图20230406180916](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406180916.png)
 
 Show Detailed Calcuations
+
+```
+billion tweets are viewed per day
+Tweets viewed per second     tweets per second
+Bandwidth for tweet    (One tweet is equal to 250 bytes)
+Bandwidth of 10 percent images in tweets in a second:
+Bandwidth for 5 percent video tweets in a second:
+The total outgoing traffic required will be equal to:
+Twitter will need a total of    of incoming traffic and   of outgoing, assuming that the uploaded content is not compressed. Total bandwidth requirements
+```
 
 ![搜狗截图20230406182918](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406182918.png)
 

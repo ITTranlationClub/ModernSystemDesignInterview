@@ -42,24 +42,65 @@ Load balancers distribute client requests according to an algorithm. That algori
 
 ### Consistent hashing
 
-**Consistent hashing** is an effective way to manage the load over the set of nodes. In consistent hashing, we consider that we have a conceptual ring of hashes from 00 to �−1*n*−1, where �*n* is the number of available hash values. We use each node’s ID, calculate its hash, and map it to the ring. We apply the same process to requests. Each request is completed by the next node that it finds by moving in the clockwise direction in the ring.
+**Consistent hashing** is an effective way to manage the load over the set of nodes. In consistent hashing, we consider that we have a conceptual ring of hashes from 0 to *n*−1, where *n* is the number of available hash values. We use each node’s ID, calculate its hash, and map it to the ring. We apply the same process to requests. Each request is completed by the next node that it finds by moving in the clockwise direction in the ring.
 
 Whenever a new node is added to the ring, the immediate next node is affected. It has to share its data with the newly added node while other nodes are unaffected. It’s easy to scale since we’re able to keep changes to our nodes minimal. This is because only a small portion of overall keys need to move. The hashes are randomly distributed, so we expect the load of requests to be random and distributed evenly on average on the ring.
 
-* Consider we have a conceptual ring of hashes from 0 to n-1, where n is the total number of hash values in the ring
-* A hash for Node1 is calculated and Node1 is added to the ring
-* A hash for Node2 is calculated and Node2 is added to the ring
-* Hashes for other nodes are calculated and nodes are added to the ring
-* Similarly, a hash is calculated for the request and the request is added to the ring
-* The request is completed by the next node it finds by moving in the clockwise direction
-* The hash is calculated for the next request and the request is added to the ring
-* The request is completed by N2 since it’s the next node in the clockwise direction
-* The hash is calculated for the request and the request is added to the ring
-* The request is completed by N3 since it’s the next node in the clockwise direction
-* The hash is calculated for a new node, Node5, which is added to the ring
-* N3 shares the keys from N2 to N5 with N5
-* The hash is calculated for a new request and the request is added to the ring
-* The request is processed by N5 instead of N3 since N5 is the next node in the clockwise direction
+![QQ截图20230413212810](/img/10-Key-value Store/QQ截图20230413212810.png)
+
+Consider we have a conceptual ring of hashes from 0 to n-1, where n is the total number of hash values in the ring
+
+![QQ截图20230413212823](/img/10-Key-value Store/QQ截图20230413212823.png)
+
+A hash for Node1 is calculated and Node1 is added to the ring
+
+![QQ截图20230413212834](/img/10-Key-value Store/QQ截图20230413212834.png)
+
+A hash for Node2 is calculated and Node2 is added to the ring
+
+![QQ截图20230413212845](/img/10-Key-value Store/QQ截图20230413212845.png)
+
+Hashes for other nodes are calculated and nodes are added to the ring
+
+![QQ截图20230413212903](/img/10-Key-value Store/QQ截图20230413212903.png)
+
+Similarly, a hash is calculated for the request and the request is added to the ring
+
+![QQ截图20230413212913](/img/10-Key-value Store/QQ截图20230413212913.png)
+
+The request is completed by the next node it finds by moving in the clockwise direction
+
+![QQ截图20230413212922](/img/10-Key-value Store/QQ截图20230413212922.png)
+
+The hash is calculated for the next request and the request is added to the ring
+
+![QQ截图20230413212932](/img/10-Key-value Store/QQ截图20230413212932.png)
+
+The request is completed by N2 since it’s the next node in the clockwise direction
+
+![QQ截图20230413212942](/img/10-Key-value Store/QQ截图20230413212942.png)
+
+The hash is calculated for the request and the request is added to the ring
+
+![QQ截图20230413212954](/img/10-Key-value Store/QQ截图20230413212954.png)
+
+The request is completed by N3 since it’s the next node in the clockwise direction
+
+![QQ截图20230413213013](/img/10-Key-value Store/QQ截图20230413213013.png)
+
+The hash is calculated for a new node, Node5, which is added to the ring
+
+![QQ截图20230413213024](/img/10-Key-value Store/QQ截图20230413213024.png)
+
+N3 shares the keys from N2 to N5 with N5
+
+![QQ截图20230413213036](/img/10-Key-value Store/QQ截图20230413213036.png)
+
+The hash is calculated for a new request and the request is added to the ring
+
+![QQ截图20230413213047](/img/10-Key-value Store/QQ截图20230413213047.png)
+
+The request is processed by N5 instead of N3 since N5 is the next node in the clockwise direction
 
 The primary benefit of consistent hashing is that as nodes join or leave, it ensures that a minimal number of keys need to move. However, the request load isn’t equally divided in practice. Any server that handles a large chunk of data can become a bottleneck in a distributed system. That node will receive a disproportionately large share of data storage and retrieval requests, reducing the overall system performance. As a result, these are referred to as hotspots.
 
@@ -77,14 +118,37 @@ We’ll use virtual nodes to ensure a more evenly distributed load across the no
 
 Let’s take an example. Suppose we have three hash functions. For each node, we calculate three hashes and place them into the ring. For the request, we use only one hash function. Wherever the request lands onto the ring, it’s processed by the next node found while moving in the clockwise direction. Each server has three positions, so the load of requests is more uniform. Moreover, if a node has more hardware capacity than others, we can add more virtual nodes by using additional hash functions. This way, it’ll have more positions in the ring and serve more requests.
 
-* Calculate the hash for Node1 using Hash 1, and place the node in the ring
-* Calculate the hash for Node1 using Hash 2, and place the node in the ring
-* Calculate the hash for Node1 using Hash 3, and place the node in the ring
-* Calculate the hash for Node2 using Hash 1, and place the node in the ring
-* Calculate the hash for Node2 using Hash 2, and place the node in the ring
-* Calculate the hash for Node2 using Hash 3, and place the node in the ring
-* Calculate the hash for the request using Hash 1, and place the request in the ring
-* The request will be processed by the virtual node of Node2
+![QQ截图20230413213624](/img/10-Key-value Store/QQ截图20230413213624.png)
+
+Calculate the hash for Node1 using Hash 1, and place the node in the ring
+
+![QQ截图20230413213639](/img/10-Key-value Store/QQ截图20230413213639.png)
+
+Calculate the hash for Node1 using Hash 2, and place the node in the ring
+
+![QQ截图20230413213650](/img/10-Key-value Store/QQ截图20230413213650.png)
+
+Calculate the hash for Node1 using Hash 3, and place the node in the ring
+
+![QQ截图20230413213701](/img/10-Key-value Store/QQ截图20230413213701.png)
+
+Calculate the hash for Node2 using Hash 1, and place the node in the ring
+
+![QQ截图20230413213717](/img/10-Key-value Store/QQ截图20230413213717.png)
+
+Calculate the hash for Node2 using Hash 2, and place the node in the ring
+
+![QQ截图20230413213731](/img/10-Key-value Store/QQ截图20230413213731.png)
+
+Calculate the hash for Node2 using Hash 3, and place the node in the ring
+
+![QQ截图20230413213745](/img/10-Key-value Store/QQ截图20230413213745.png)
+
+Calculate the hash for the request using Hash 1, and place the request in the ring
+
+![QQ截图20230413213806](/img/10-Key-value Store/QQ截图20230413213806.png)
+
+The request will be processed by the virtual node of Node2
 
 ##### Advantages of virtual nodes
 
