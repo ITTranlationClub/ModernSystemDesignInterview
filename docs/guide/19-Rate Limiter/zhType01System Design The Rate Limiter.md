@@ -1,3 +1,7 @@
+---
+typora-root-url: ..
+---
+
 # 系统设计：速率限制器
 
 让我们了解一下如何设计速率限制器的基本细节。
@@ -19,7 +23,7 @@
 
 ![通过速率限制器调节向API服务器发送的请求数量](/img/19-Rate%20Limiter/ThrottlingTheNumberOfRequestsToAPIServers.png)
 
-通过速率限制器调节向API服务器发送的请求数量
+<center>通过速率限制器调节向API服务器发送的请求数量</center>
 
 ## 我们将如何设计速率限制器？
 
