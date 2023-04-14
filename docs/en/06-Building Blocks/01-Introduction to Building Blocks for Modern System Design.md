@@ -20,37 +20,37 @@ Using building blocks to devise a bottom-up approach for designing systems
 
 We’ll discuss the following building blocks in detail:
 
-1. **[Domain Name System](https://www.educative.io/collection/page/10370001/4941429335392256/5728619204182016):** This building block focuses on how to design hierarchical and distributed naming systems for computers connected to the Internet via different Internet protocols.
+1. **Domain Name System:** This building block focuses on how to design hierarchical and distributed naming systems for computers connected to the Internet via different Internet protocols.
 
-1. **[Load Balancers](https://www.educative.io/collection/page/10370001/4941429335392256/4521972679049216):** Here, we’ll understand the design of a load balancer, which is used to fairly distribute incoming clients’ requests among a pool of available servers. It also reduces load and can bypass failed servers.
+1. **Load Balancers:** Here, we’ll understand the design of a load balancer, which is used to fairly distribute incoming clients’ requests among a pool of available servers. It also reduces load and can bypass failed servers.
 
-1. **[Databases](https://www.educative.io/collection/page/10370001/4941429335392256/4901035478351872):** This building block enables us to store, retrieve, modify, and delete data in connection with different data-processing procedures. Here, we’ll discuss database types, replication, partitioning, and analysis of distributed databases.
+1. **Databases:** This building block enables us to store, retrieve, modify, and delete data in connection with different data-processing procedures. Here, we’ll discuss database types, replication, partitioning, and analysis of distributed databases.
 
-1. **[Key-Value Store](https://www.educative.io/collection/page/10370001/4941429335392256/4747701493432320):** It is a non-relational database that stores data in the form of a key-value pair. Here, we’ll explain the design of a key-value store along with important concepts such as achieving scalability, durability, and configurability.
+1. **Key-Value Store:** It is a non-relational database that stores data in the form of a key-value pair. Here, we’ll explain the design of a key-value store along with important concepts such as achieving scalability, durability, and configurability.
 
-1. **[Content Delivery Network](https://www.educative.io/collection/page/10370001/4941429335392256/6624266925899776):** In this chapter, we’ll design a content delivery network (CDN) that’s used to keep viral content such as videos, images, audio, and webpages. It efficiently delivers content to end users while reducing latency and burden on the data centers.
+1. **Content Delivery Network:** In this chapter, we’ll design a content delivery network (CDN) that’s used to keep viral content such as videos, images, audio, and webpages. It efficiently delivers content to end users while reducing latency and burden on the data centers.
 
-1. **[Sequencer](https://www.educative.io/collection/page/10370001/4941429335392256/6499939719053312):** In this building block, we’ll focus on the design of a unique IDs generator with a major focus on maintaining causality. It also explains three different methods for generating unique IDs.
+1. **Sequencer:** In this building block, we’ll focus on the design of a unique IDs generator with a major focus on maintaining causality. It also explains three different methods for generating unique IDs.
 
-1. **[Service Monitoring](https://www.educative.io/collection/page/10370001/4941429335392256/6310983387840512):** Monitoring systems are critical in distributed systems because they help analyze the system and alert the stakeholders if a problem occurs. Monitoring is often useful to get early warning systems so that system administrators can act ahead of an impending problem becoming a huge issue. Here, we’ll build two monitoring systems, one for the server-side and the other for client-side errors.
+1. **Service Monitoring:** Monitoring systems are critical in distributed systems because they help analyze the system and alert the stakeholders if a problem occurs. Monitoring is often useful to get early warning systems so that system administrators can act ahead of an impending problem becoming a huge issue. Here, we’ll build two monitoring systems, one for the server-side and the other for client-side errors.
 
-1. **[Distributed Caching](https://www.educative.io/collection/page/10370001/4941429335392256/5053577315221504):** In this building block, we’ll design a distributed caching system where multiple cache servers coordinate to store frequently accessed data.
+1. **Distributed Caching:** In this building block, we’ll design a distributed caching system where multiple cache servers coordinate to store frequently accessed data.
 
-1. **[Distributed Messaging Queue](https://www.educative.io/collection/page/10370001/4941429335392256/5148400467312640):** In this building block, we’ll focus on the design of a queue consisting of multiple servers, which is used between interacting entities called producers and consumers. It helps decouple producers and consumers, results in independent scalability, and enhances reliability.
+1. **Distributed Messaging Queue:** In this building block, we’ll focus on the design of a queue consisting of multiple servers, which is used between interacting entities called producers and consumers. It helps decouple producers and consumers, results in independent scalability, and enhances reliability.
 
-1. **[Publish-Subscribe System](https://www.educative.io/collection/page/10370001/4941429335392256/4996814243889152):** In this building block, we’ll focus on the design of an asynchronous service-to-service communication method called a pub-sub system. It is popular in serverless, microservices architectures and data processing systems.
+1. **Publish-Subscribe System:** In this building block, we’ll focus on the design of an asynchronous service-to-service communication method called a pub-sub system. It is popular in serverless, microservices architectures and data processing systems.
 
-1. **[Rate Limiter](https://www.educative.io/collection/page/10370001/4941429335392256/4770834422169600):** Here, we’ll design a system that throttles incoming requests for a service based on the predefined limit. It is generally used as a defensive layer for services to avoid their excessive usage-whether intended or unintended.
+1. **Rate Limiter:** Here, we’ll design a system that throttles incoming requests for a service based on the predefined limit. It is generally used as a defensive layer for services to avoid their excessive usage-whether intended or unintended.
 
-1. **[Blob Store](https://www.educative.io/collection/page/10370001/4941429335392256/4862646238576640):** This building block focuses on a storage solution for unstructured data—for example, multimedia files and binary executables.
+1. **Blob Store:** This building block focuses on a storage solution for unstructured data—for example, multimedia files and binary executables.
 
-1. **[Distributed Search](https://www.educative.io/collection/page/10370001/4941429335392256/5400897294696448):** A search system takes a query from a user and returns relevant content in a few seconds or less. This building block focuses on the three integral components: crawl, index, and search.
+1. **Distributed Search:** A search system takes a query from a user and returns relevant content in a few seconds or less. This building block focuses on the three integral components: crawl, index, and search.
 
-1. **[Distributed Logging](https://www.educative.io/collection/page/10370001/4941429335392256/6747547922333696):** Logging is an I/O intensive operation that is time-consuming and slow. Here, we’ll design a system that allows services in a distributed system to log their events efficiently. The system will be made scalable and reliable.
+1. **Distributed Logging:** Logging is an I/O intensive operation that is time-consuming and slow. Here, we’ll design a system that allows services in a distributed system to log their events efficiently. The system will be made scalable and reliable.
 
-1. **[Distributed Task Scheduling](https://www.educative.io/collection/page/10370001/4941429335392256/6152021643624448):** We’ll design a distributed task scheduler system that mediates between tasks and resources. It intelligently allocates resources to tasks to meet task-level and system-level goals. It’s often used to offload background processing to be completed asynchronously.
+1. **Distributed Task Scheduling:** We’ll design a distributed task scheduler system that mediates between tasks and resources. It intelligently allocates resources to tasks to meet task-level and system-level goals. It’s often used to offload background processing to be completed asynchronously.
 
-1. **[Sharded Counters](https://www.educative.io/collection/page/10370001/4941429335392256/6071347163955200):** This building block demonstrates an efficient distributed counting system to deal with millions of concurrent read/write requests, such as likes on a celebrity’s tweet.
+1. **Sharded Counters:** This building block demonstrates an efficient distributed counting system to deal with millions of concurrent read/write requests, such as likes on a celebrity’s tweet.
 
 We have topologically ordered the building blocks so the building blocks that depend on others come later.
 

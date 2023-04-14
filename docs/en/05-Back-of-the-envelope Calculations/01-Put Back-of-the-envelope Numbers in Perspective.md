@@ -124,11 +124,30 @@ Let’s do the computation for each type of request.
 
 **CPU bound:** A simple formula used to calculate the RPS for CPU-bound requests is:
 
+```
+In this calculation, we use these terms:
+: CPU bound RPS
+: Number of CPU threads, which are also called hardware threads
+: The time each task takes to complete
+```
+
 ![搜狗截图20230406184701](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406184701.png)
 
 The rationale for the calculation shown above is that we can visualize one second as a box and we calculate how many mini-boxes (tasks) can fit inside the big box—that is, the number of tasks that can be completed in one second by a number of CPUs. So, a higher number of CPUs/threads will result in a higher RPS.
 
 **Memory-bound requests:** For memory-bound requests, we use the following formula:
+
+```
+In this calculation, we use these terms:
+: Memory bound RPS
+: Total size of RAM
+: A worker in memory that manages a request
+```
+
+```
+Continuing our box analogy from the explanation of CPU-bound processes, here we first calculate the number of boxes there are (how many memory-bound processes a server can host) and then how many mini-boxes (tasks) we can fit in each of the bigger boxes.
+A service receives both the CPU-bound and memory-bound requests. Considering the case that half the requests are CPU-bound and the other half memory-bound, we can handle a total of
+```
 
 ![搜狗截图20230406184714](/img/05-Back-of-the-envelope Calculations/搜狗截图20230406184714.png)
 

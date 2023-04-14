@@ -21,7 +21,7 @@ As stated before, the DNS isn’t a single server that accepts requests and resp
 There are mainly four types of servers in the DNS hierarchy:
 
 1. **DNS resolver:** Resolvers initiate the querying sequence and forward requests to the other DNS name servers. Typically, DNS resolvers lie within the premise of the user’s network. However, DNS resolvers can also cater to users’ DNS queries through caching techniques, as we will see shortly. These servers can also be called local or default servers.
-2. **Root-level name servers:** These servers receive requests from local servers. Root name servers maintain name servers based on top-level domain names, such as `.com`, `.edu`, `.us`, and so on. For instance, when a user requests the IP address of [educative.io](http://educative.io/), root-level name servers will return a list of top-level domain (TLD) servers that hold the IP addresses of the `.io` domain.
+2. **Root-level name servers:** These servers receive requests from local servers. Root name servers maintain name servers based on top-level domain names, such as `.com`, `.edu`, `.us`, and so on. For instance, when a user requests the IP address of `educative.io`, root-level name servers will return a list of top-level domain (TLD) servers that hold the IP addresses of the `.io` domain.
 3. **Top-level domain (TLD) name servers:** These servers hold the IP addresses of authoritative name servers. The querying party will get a list of IP addresses that belong to the authoritative servers of the organization.
 4. **Authoritative name servers:** These are the organization’s DNS name servers that provide the IP addresses of the web or application servers.
 
@@ -33,11 +33,11 @@ Point to Ponder
 
 ###### Question
 
-How are DNS names processed? For example, will [educative.io](http://educative.io/) be processed from left to right or right to left?
+How are DNS names processed? For example, will `educative.io` be processed from left to right or right to left?
 
 Hide Answer
 
-Unlike UNIX files, which are processed from left to right, DNS names are processed from right to left. In the case of [educative.io](http://educative.io/), the resolvers will first resolve the `.io` part, then `educative`, and so on.Visually, however, the DNS hierarchy can be viewed as a tree.
+Unlike UNIX files, which are processed from left to right, DNS names are processed from right to left. In the case of `educative.io`, the resolvers will first resolve the `.io` part, then `educative`, and so on.Visually, however, the DNS hierarchy can be viewed as a tree.
 
 ### Iterative versus recursive query resolution
 
@@ -60,15 +60,37 @@ These days, we’ll find many third-party public DNS resolvers offered by Google
 
 ## Caching
 
-**Caching** refers to the temporary storage of frequently requested [resource records](https://www.educative.io/edpresso/what-is-the-difference-between-dns-a-record-and-cname). A ***record\*** is a data unit within the DNS database that shows a name-to-value binding. Caching reduces response time to the user and decreases network traffic. When we use caching at different hierarchies, it can reduce a lot of querying burden on the DNS infrastructure. Caching can be implemented in the browser, operating systems, local name server within the user’s network, or the ISP’s DNS resolvers.
+**Caching** refers to the temporary storage of frequently requested `resource records`. A **record** is a data unit within the DNS database that shows a name-to-value binding. Caching reduces response time to the user and decreases network traffic. When we use caching at different hierarchies, it can reduce a lot of querying burden on the DNS infrastructure. Caching can be implemented in the browser, operating systems, local name server within the user’s network, or the ISP’s DNS resolvers.
 
 The slideshow below demonstrates the power of caching in the DNS:
 
-![QQ截图20230406205301](/img/07-Domain Name System/QQ截图20230406205301.png)
+![QQ截图20230413204931](/img/07-Domain Name System/QQ截图20230413204931.png)
 
-![搜狗截图20230406205330](../img/07-Domain Name System/搜狗截图20230406205330.png)
+The user requests to visit a URL, and the browser has cached the domain name to IP address mapping
 
+![QQ截图20230413204948](/img/07-Domain Name System/QQ截图20230413204948.png)
 
+Here’s what happens if the browser hasn't cached the domain to IP address mapping. The next hierarchy that can have the mapping is the OS
+
+![QQ截图20230413205001](/img/07-Domain Name System/QQ截图20230413205001.png)
+
+If the OS doesn't have the mapping, the local DNS resolver can have the cached response
+
+![QQ截图20230413205012](/img/07-Domain Name System/QQ截图20230413205012.png)
+
+If the local DNS resolver doesn't have the mapping, the ISP can have a cached response
+
+![QQ截图20230413205028](/img/07-Domain Name System/QQ截图20230413205028.png)
+
+Finally, the DNS infrastructure will respond with the IP
+
+![QQ截图20230413205043](/img/07-Domain Name System/QQ截图20230413205043.png)
+
+The cache will be updated at each hierarchy
+
+![QQ截图20230413205110](/img/07-Domain Name System/QQ截图20230413205110.png)
+
+The browser now has updated cache so the user request will get served locally
 
 > **Note:** Even if there is no cache available to resolve a user’s query and it’s imperative to visit the DNS infrastructure, caching can still be beneficial. The local server or ISP DNS resolver can cache the IP addresses of TLD servers or authoritative servers and avoid requesting the root-level server.
 
@@ -133,19 +155,28 @@ The following slide deck highlights some important aspects of `nslookup` and `di
 
 ![QQ截图20230406205439](/img/07-Domain Name System/QQ截图20230406205439.png)
 
-![QQ截图20230406205451](../img/07-Domain Name System/QQ截图20230406205451.png)
+The output of nslookup www.google.com
+
+![QQ截图20230406205451](/img/07-Domain Name System/QQ截图20230406205451.png)
+
+Output of dig www.google.com
 
 Let’s go through the meaning of the output:
 
 ### The `nslookup` output
 
 - The `Non-authoritative answer`, as the name suggests, is the answer provided by a server that is not the authoritative server of Google. It isn’t in the list of authoritative nameservers that Google maintains. So, where does the answer come from? The answer is provided by second, third, and fourth-hand name servers configured to reply to our DNS query—for example, our university or office DNS resolver, our ISP nameserver, our ISP’s ISP nameserver, and so on. In short, it can be considered as a cached version of Google’s authoritative nameservers response. If we try multiple domain names, we’ll realize that we receive a cached response most of the time.
-- If we run the same command multiple times, we’ll receive the same IP addresses list but in a different order each time. The reason for that is DNS is indirectly performing [load balancing](https://www.educative.io/collection/page/10370001/4941429335392256/4521972679049216). It’s an important term that we’ll gain familiarity with in the coming lessons.
+- If we run the same command multiple times, we’ll receive the same IP addresses list but in a different order each time. The reason for that is DNS is indirectly performing `load balancing`. It’s an important term that we’ll gain familiarity with in the coming lessons.
 
 ### The `dig` output
 
+```
+The 300 value in the ANSWER SECTION represents the number of seconds the cache is maintained in the DNS resolver. This means that Google’s ADNS keeps a TTL value of five minutes
+```
+
 - The `Query time: 4 msec` represents the time it takes to get a response from the DNS server. For various reasons, these numbers may be different in our case.
-- The `300` value in the *`ANSWER SECTION`* represents the number of seconds the cache is maintained in the DNS resolver. This means that Google’s ADNS keeps a TTL value of five minutes (300 ���6060300 *sec*).
+
+  ![QQ截图20230413205631](/img/07-Domain Name System/QQ截图20230413205631.png)
 
 > **Note:** We invite you to test different services for their TTL and query times to strengthen your understanding. You may use the above terminal for this purpose.
 
@@ -157,4 +188,4 @@ If we need DNS to tell us which IP to reach a website or service, how will we kn
 
 Hide Answer
 
-End users’ operating systems have configuration files (`/etc/resolv.conf` in Linux) with the DNS resolvers’ IP addresses, which in turn obtain all information for them. (Often, DHCP provides the default DNS resolver IP address along with other configurations.) The end-systems request DNS resolves for any DNS queries. DNS resolvers have special software installed to resolve queries through the DNS infrastructure. The root server’s IP addresses are within the special software. Typically, the Berkeley Internet Name Domain (BIND) software is used on DNS resolvers. The [InterNIC](https://www.internic.net/domain/named.root) maintains the updated list of 13 root servers.So, we break the chicken-and-egg problem by seeding each resolver with a priori knowledge of root DNS servers (whose IPs rarely change).
+End users’ operating systems have configuration files (`/etc/resolv.conf` in Linux) with the DNS resolvers’ IP addresses, which in turn obtain all information for them. (Often, DHCP provides the default DNS resolver IP address along with other configurations.) The end-systems request DNS resolves for any DNS queries. DNS resolvers have special software installed to resolve queries through the DNS infrastructure. The root server’s IP addresses are within the special software. Typically, the Berkeley Internet Name Domain (BIND) software is used on DNS resolvers. The `InterNIC` maintains the updated list of 13 root servers.So, we break the chicken-and-egg problem by seeding each resolver with a priori knowledge of root DNS servers (whose IPs rarely change).

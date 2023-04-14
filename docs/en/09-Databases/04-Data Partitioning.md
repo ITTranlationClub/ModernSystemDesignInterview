@@ -91,6 +91,12 @@ The basic design techniques used in multi-table sharding are as follows:
 
 **Hash-based sharding** uses a hash-like function on an attribute, and it produces different values based on which attribute the partitioning is performed. The main concept is to use a hash function on the key to get a hash value and then mod by the number of partitions. Once we’ve found an appropriate hash function for keys, we may give each partition a range of hashes (rather than a range of keys). Any key whose hash occurs inside that range will be kept in that partition.
 
+```
+In the illustration below, we use a hash function of 
+
+ is the number of nodes, which is four. We allocate keys to nodes by checking the mod for each key. Keys with a mod value of 2 are allocated to node 2. Keys with a mod value of 1 are allocated to node 1. Keys with a mod value of 3 are allocated to node 3. Because there’s no key with a mod value of 0, node 0 is left vacant.
+```
+
 ![QQ截图20230407114628](/img/09-Databases/QQ截图20230407114628.png)
 
 ![QQ截图20230407114028](/img/09-Databases/QQ截图20230407114028.png)
@@ -139,6 +145,21 @@ Query load can be imbalanced across the nodes due to many reasons, including the
 We can apply the following strategies to rebalance partitions.
 
 #### Avoid hash mod n
+
+```
+Usually, we avoid the hash of a key for partitioning (we used such a scheme to explain the concept of hashing in simple terms earlier). The problem with the addition or removal of nodes in the case of 
+
+hashmodn
+ is that every node’s partition number changes and a lot of data moves. For example, assume we have 
+
+1235
+hash(key)=1235
+. If we have five nodes at the start, the key will start on node 1 (
+
+). Now, if a new node is added, the key would have to be moved to node 6 (
+
+), and so on. This moving of keys from one node to another makes rebalancing costly.
+```
 
 ![QQ截图20230407114753](/img/09-Databases/QQ截图20230407114753.png)
 

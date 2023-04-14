@@ -1,3 +1,7 @@
+---
+typora-root-url: ..
+---
+
 # Enable Fault Tolerance and Failure Detection
 
 Learn how to make a key-value store fault tolerant and able to detect failure.
@@ -10,13 +14,27 @@ We’ll use a sloppy quorum instead of strict quorum membership. Usually, a lead
 
 In the sloppy quorum, the first *n* healthy nodes from the preference list handle all read and write operations. The *n* healthy nodes may not always be the first *n* nodes discovered when moving clockwise in the consistent hash ring.
 
-Let’s consider the following configuration with n*=3. If node *A* is briefly unavailable or unreachable during a write operation, the request is sent to the next healthy node from the preference list, which is node *D* in this case. It ensures the desired availability and durability. After processing the request, the node *D* includes a hint as to which node was the intended receiver (in this case, *A*). Once node *A* is up and running again, node *D* sends the request information to *A* so it can update its data. Upon completion of the transfer, *D* removes this item from its local storage without affecting the total number of replicas in the system.
+Let’s consider the following configuration with *n*=3. If node *A* is briefly unavailable or unreachable during a write operation, the request is sent to the next healthy node from the preference list, which is node *D* in this case. It ensures the desired availability and durability. After processing the request, the node *D* includes a hint as to which node was the intended receiver (in this case, *A*). Once node *A* is up and running again, node *D* sends the request information to *A* so it can update its data. Upon completion of the transfer, *D* removes this item from its local storage without affecting the total number of replicas in the system.
 
-* Suppose we have seven nodes in our ring and a preference list of the nodes
-* A request comes in, and node A processes it since it’s the next node in the ring. The node is processed while moving in the clockwise direction
-* Node A becomes down due to some failure
-* A request comes in. Node A has to process it but is unable to, so we check the next node in the preference list
-* Request is sent to node D as node A is down
+![QQ截图20230414144535](/img/10-Key-value Store/QQ截图20230414144535.png)
+
+Suppose we have seven nodes in our ring and a preference list of the nodes
+
+![QQ截图20230414144611](/img/10-Key-value Store/QQ截图20230414144611.png)
+
+A request comes in, and node A processes it since it’s the next node in the ring. The node is processed while moving in the clockwise direction
+
+![QQ截图20230414144622](/img/10-Key-value Store/QQ截图20230414144622.png)
+
+Node A becomes down due to some failure
+
+![QQ截图20230414144641](/img/10-Key-value Store/QQ截图20230414144641.png)
+
+A request comes in. Node A has to process it but is unable to, so we check the next node in the preference list
+
+![QQ截图20230414144653](/img/10-Key-value Store/QQ截图20230414144653.png)
+
+Request is sent to node D as node A is down
 
 This approach is called a **hinted handoff**. Using it, we can ensure that reads and writes are fulfilled if a node faces temporary failure.
 
@@ -40,20 +58,61 @@ In a **Merkle tree**, the values of individual keys are hashed and used as the l
 
 The following slides explain how Merkle trees work:
 
-* Calculate the hashes for all keys. The hashes will be leaf nodes
-* The hashes of the H1 and H2 nodes are calculated and stored as their parent node
-* The hashes of the H3 and H4 nodes are calculated and stored as their parent node
-* The hashes of all other nodes are calculated and stored as their parent node
-* The hashes of the nodes H 1 2 and H 3 4 is calculated and stored as their parent node. The same thing is done for H 5 6 and H 7 8
-* We duplicate the odd node
-* Calculate the hash of both nodes (the actual node and its duplicate), and store it as the parent node
-* Calculate the hash of the nodes and store them as the parent node
-* Calculate the hash of the last two nodes to store as the root node
-* Suppose the value of K2 is updated. Its hash will now be recalculated
-* The hash of the parent will also be recalculated and updated
-* The hash of the parent will also be recalculated and updated
-* The hash of the parent will also be recalculated and updated
-* The hash of the root node will also be recalculated and updated
+![QQ截图20230414144859](/img/10-Key-value Store/QQ截图20230414144859.png)
+
+Calculate the hashes for all keys. The hashes will be leaf nodes
+
+![QQ截图20230414144910](/img/10-Key-value Store/QQ截图20230414144910.png)
+
+The hashes of the H1 and H2 nodes are calculated and stored as their parent node
+
+![QQ截图20230414144921](/img/10-Key-value Store/QQ截图20230414144921.png)
+
+The hashes of the H3 and H4 nodes are calculated and stored as their parent node
+
+![QQ截图20230414144932](/img/10-Key-value Store/QQ截图20230414144932.png)
+
+The hashes of all other nodes are calculated and stored as their parent node
+
+![QQ截图20230414144945](/img/10-Key-value Store/QQ截图20230414144945.png)
+
+The hashes of the nodes H 1 2 and H 3 4 is calculated and stored as their parent node. The same thing is done for H 5 6 and H 7 8
+
+![QQ截图20230414145002](/img/10-Key-value Store/QQ截图20230414145002.png)
+
+We duplicate the odd node
+
+![QQ截图20230414145023](/img/10-Key-value Store/QQ截图20230414145023.png)
+
+Calculate the hash of both nodes (the actual node and its duplicate), and store it as the parent node
+
+![QQ截图20230414145040](/img/10-Key-value Store/QQ截图20230414145040.png)
+
+Calculate the hash of the nodes and store them as the parent node
+
+![QQ截图20230414145059](/img/10-Key-value Store/QQ截图20230414145059.png)
+
+Calculate the hash of the last two nodes to store as the root node
+
+![QQ截图20230414145111](/img/10-Key-value Store/QQ截图20230414145111.png)
+
+Suppose the value of K2 is updated. Its hash will now be recalculated
+
+![QQ截图20230414145127](/img/10-Key-value Store/QQ截图20230414145127.png)
+
+The hash of the parent will also be recalculated and updated
+
+![QQ截图20230414145139](/img/10-Key-value Store/QQ截图20230414145139.png)
+
+The hash of the parent will also be recalculated and updated
+
+![QQ截图20230414145153](/img/10-Key-value Store/QQ截图20230414145153.png)
+
+The hash of the parent will also be recalculated and updated
+
+![QQ截图20230414145204](/img/10-Key-value Store/QQ截图20230414145204.png)
+
+The hash of the root node will also be recalculated and updated
 
 ### Anti-entropy with Merkle trees
 
@@ -67,15 +126,41 @@ The following slides explain more about how Merkle trees work.
 
 > **Note**: We assume the ranges defined are hypothetical for illustration purposes.
 
-* Let’s suppose we have the virtual nodes A and B in the ring
-* The ranges that each virtual node covers are defined
-* The ranges that each virtual node covers are defined in table form
-* Merkle tree for Node A
-* Merkle tree for Node B
-* Let’s suppose a new virtual node, N8, of A is added and the ranges are updated accordingly
-* The updated ranges that each virtual node covers are defined in table form
-* The updated Merkle tree for Node A
-* The updated Merkle tree for Node B
+![QQ截图20230414145612](/img/10-Key-value Store/QQ截图20230414145612.png)
+
+Let’s suppose we have the virtual nodes A and B in the ring
+
+![QQ截图20230414145641](/img/10-Key-value Store/QQ截图20230414145641.png)
+
+The ranges that each virtual node covers are defined
+
+![QQ截图20230414145702](/img/10-Key-value Store/QQ截图20230414145702.png)
+
+The ranges that each virtual node covers are defined in table form
+
+![QQ截图20230414145718](/img/10-Key-value Store/QQ截图20230414145718.png)
+
+Merkle tree for Node A
+
+![QQ截图20230414145735](/img/10-Key-value Store/QQ截图20230414145735.png)
+
+Merkle tree for Node B
+
+![QQ截图20230414145749](/img/10-Key-value Store/QQ截图20230414145749.png)
+
+Let’s suppose a new virtual node, N8, of A is added and the ranges are updated accordingly
+
+![QQ截图20230414145812](/img/10-Key-value Store/QQ截图20230414145812.png)
+
+The updated ranges that each virtual node covers are defined in table form
+
+![QQ截图20230414145830](/img/10-Key-value Store/QQ截图20230414145830.png)
+
+The updated Merkle tree for Node A
+
+![QQ截图20230414145845](/img/10-Key-value Store/QQ截图20230414145845.png)
+
+The updated Merkle tree for Node B
 
 The advantage of using Merkle trees is that each branch of the Merkle tree can be examined independently without requiring nodes to download the tree or the complete dataset. It reduces the quantity of data that must be exchanged for synchronization and the number of disc accesses that are required during the anti-entropy procedure.
 
@@ -93,11 +178,25 @@ Let’s learn how a gossip-based protocol works by considering the following exa
 
 Now, node *A* handles a request that results in a change, so it communicates this to *B* and *E*. Another node, *D*, has *C* and *E* in its token set. It makes a change and tells *C* and *E*. The other nodes do the same process. This way, every node eventually knows about every other node’s information. It’s an efficient way to share information asynchronously, and it doesn’t take up a lot of bandwidth.
 
-* A set of nodes in a ring
-* Node A processes the request. Its token set has B and E in it
-* Node A gossips membership information to Node B and E after few requests
-* Node D processes the request. Its token set has C and E in it
-* Node D gossips membership information to Node C and E after a few requests
+![QQ截图20230414150224](/img/10-Key-value Store/QQ截图20230414150224.png)
+
+A set of nodes in a ring
+
+![QQ截图20230414150240](/img/10-Key-value Store/QQ截图20230414150240.png)
+
+Node A processes the request. Its token set has B and E in it
+
+![QQ截图20230414150306](/img/10-Key-value Store/QQ截图20230414150306.png)
+
+Node A gossips membership information to Node B and E after few requests
+
+![QQ截图20230414150327](/img/10-Key-value Store/QQ截图20230414150327.png)
+
+Node D processes the request. Its token set has C and E in it
+
+![QQ截图20230414150347](/img/10-Key-value Store/QQ截图20230414150347.png)
+
+Node D gossips membership information to Node C and E after a few requests
 
 Points to Ponder
 
@@ -108,6 +207,14 @@ Keeping in mind our consistent hashing approach, can the gossip-based protocol f
 Hide Answer
 
 Yes, the gossip-based protocol can fail. For example, the virtual node, *N*1, of node *A* wants to be added to the ring. The administrator asks *N*2, which is also a virtual node of *A*. In such a case, both nodes consider themselves to be part of the ring and won’t be aware that they’re the same server. If any change is made, it will keep on updating itself, which is wrong. This is called **logical partitioning**.
+
+###### Question 2
+
+How can we prevent logical partitioning?
+
+Hide Answer
+
+We can make a few nodes play the role of seeds to avoid logical partitions. We can define a set of nodes as seeds via a configuration service. This set of nodes is known to all the working nodes since they can eventually reconcile their membership with a seed. So, logical partitions are pretty rare.
 
 Decentralized failure detection protocols use a gossip-based protocol that allows each node to learn about the addition or removal of other nodes. The join and leave methods of the explicit node notify the nodes about the permanent node additions and removals. The individual nodes detect temporary node failures when they fail to communicate with another node. If a node fails to communicate to any of the nodes present in its token set for the authorized time, then it communicates to the administrators that the node is dead.
 

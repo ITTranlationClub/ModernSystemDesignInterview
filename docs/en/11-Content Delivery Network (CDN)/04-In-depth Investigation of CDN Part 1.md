@@ -103,16 +103,41 @@ Content providers can use DNS redirect to send a client to a specific CDN. As an
 
 Depending on the location of the user, the response of the DNS can be different. Let’s see the slides below to understand how DNS redirection works:
 
-![QQ截图20230408185244](/img/11-Content Delivery Network (CDN)/QQ截图20230408185244.png)
+![QQ截图20230414155841](/img/11-Content Delivery Network (CDN)/QQ截图20230414155841.png)
+
+The origin server distributes content to the proxy servers
+
+![QQ截图20230414155857](/img/11-Content Delivery Network (CDN)/QQ截图20230414155857.png)
+
+The client requests the proxy server that’s nearest to the local DNS
+
+![QQ截图20230414155913](/img/11-Content Delivery Network (CDN)/QQ截图20230414155913.png)
+
+The DNS gives the URL of the CDN authoritative DNS server to the requested clients
+
+![QQ截图20230414155935](/img/11-Content Delivery Network (CDN)/QQ截图20230414155935.png)
+
+The client requests the proxy server that’s nearest to the CDN authoritative DNS
+
+![QQ截图20230414155953](/img/11-Content Delivery Network (CDN)/QQ截图20230414155953.png)
+
+The CDN authoritative DNS gives the IP address of the nearest proxy server to the requested clients
+
+![QQ截图20230414160004](/img/11-Content Delivery Network (CDN)/QQ截图20230414160004.png)
+
+The client requests a particular video
+
+![QQ截图20230414160015](/img/11-Content Delivery Network (CDN)/QQ截图20230414160015.png)
 
 Proxy server deliver the requested video
+
 
 > **Note**: The nearest proxy server doesn’t necessarily mean the one that’s geographically the closest. It could be, but it’s not only the geography that matters. Other factors like network distance, bandwidth, and traffic load already on that route also matter.
 
 There are two steps in the DNS redirection approach:
 
 1. In the first step, it maps the clients to the appropriate network location.
-2. In the second step, it distributes the load over the proxy servers in that location to balance the load among the proxy servers (see [DNS](https://www.educative.io/collection/page/10370001/4941429335392256/5728619204182016) and [Load Balancers](https://www.educative.io/collection/page/10370001/4941429335392256/4521972679049216) building blocks for more details on this).
+2. In the second step, it distributes the load over the proxy servers in that location to balance the load among the proxy servers (see *DNS* and *Load Balancers* building blocks for more details on this).
 
 DNS redirection takes both of these important factors—network distance and requests load—into consideration, and that reduces the latency towards a proxy server.
 

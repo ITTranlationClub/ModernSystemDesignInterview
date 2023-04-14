@@ -111,6 +111,14 @@ Request R2 being routed to the Documents server
 
 Let’s look at the illustration above in the following steps:
 
+```
+indicates request 1 coming through one of the
+routers forward   to any of the three available tier   using a round-robin algorithm   take a hash of the source IP address  and forward the packet to the next tier of LBs.
+upon receiving the packet, offloads TLS and reads the HTTP(S) data. By observing the requested URL, it forwards the request to the server handling requests for slides.
+
+takes the same path but a different end-server because the requested URL contains document instead of slides. Tier-3 LBs are preconfigured to forward requests to application servers based on the application data. For instance, a typical HAProxy server can have the following configuration in tier-3 LBs:
+```
+
 ![QQ截图20230406212445](/img/08-Load Balancers/QQ截图20230406212445.png)
 
 ```java
@@ -133,6 +141,30 @@ Hide Answer
 
 No, the server can send the response directly to the routers (tier-1 LBs) through tier-3 LBs, which can forward the response from the data center. Such a response is called **direct routing** (**DR**) or **direct server return** (**DSR**).
 
+###### Question 2
+
+Why don’t the servers directly send the response to the routers (tier-1 LBs) instead of tier-3 LBs?
+
+Hide Answer
+
+Tier-3 LBs maintain some state of connection—for example, SSL encryption/decryption. This is necessary to give clients a seamless experience.
+
+###### Question 3
+
+According to you, which tier of LBs is more prone to bugs?
+
+Hide Answer
+
+Tier 3 has more complexity, which makes it more prone to bugs.
+
+###### Question 4
+
+The image above shows a higher number of tier-3 load balancers than that of tier-2. What do you think is the reason for such a representation?
+
+Hide Answer
+
+Tier 3 performs application-specific analysis and substantially more sophisticated computations. Therefore, handling the same number of queries as tier 2 requires a higher number of machines. Furthermore, tier-3 LBs maintain the state of a large number of application servers, which may not be possible using the same number of LBs as tier 2.
+
 ## Implementation of load balancers
 
 Different kinds of load balancers can be implemented depending on the number of incoming requests, organization, and application-specific requirements:
@@ -153,7 +185,7 @@ With the advent of the field of cloud computing, Load Balancers as a Service (LB
 
 GSLB is obtained through LBaaS, and the regions contain data centers that are the property of application providers
 
-> **Note:** Another interesting implementation of load balancers comes in the form of **client-side load balancing**. Client-side load balancing is suited where there are numerous services, each with many instances (such as [load balancing in Twitter](https://www.educative.io/collection/page/10370001/4941429335392256/5379128533975040)). Our focus, however, is on traditional load balancers because most three-tier applications employ these in their design.
+> **Note:** Another interesting implementation of load balancers comes in the form of **client-side load balancing**. Client-side load balancing is suited where there are numerous services, each with many instances (such as load balancing in Twitter). Our focus, however, is on traditional load balancers because most three-tier applications employ these in their design.
 
 ## Conclusion
 
