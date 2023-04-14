@@ -14,9 +14,65 @@ Let’s consider a scenario where a user uploads a video, `intro-to-system-desig
 
 In this scenario, service 3 fails due to some error, and service 2 makes an entry in the database X. The database X crashes, and the request to fetch a video is routed to database Y. The user wants to play the video `intro-to-system-design`, but it will give an error of “Video not found…”
 
-![QQ截图20230408195445](/img/13-Distributed Monitoring/QQ截图20230408195445.png)
+![QQ截图20230414163317](/img/13-Distributed Monitoring/QQ截图20230414163317.png)
 
-![QQ截图20230408195551](/img/13-Distributed Monitoring/QQ截图20230408195551.png)
+The user uploads a video on YouTube
+
+![QQ截图20230414163333](/img/13-Distributed Monitoring/QQ截图20230414163333.png)
+
+The UI service in server A takes the video information and gives the data to service 2 in server B
+
+![QQ截图20230414163352](/img/13-Distributed Monitoring/QQ截图20230414163352.png)
+
+Service 2 makes an entry in the database and stores the video in blob storage
+
+![QQ截图20230414163410](/img/13-Distributed Monitoring/QQ截图20230414163410.png)
+
+Service 3 in server C manages the synchronization of databases X and Y
+
+![QQ截图20230414163430](/img/13-Distributed Monitoring/QQ截图20230414163430.png)
+
+Service 3 fails due to an error, and service 2 makes an entry in the database X
+
+![QQ截图20230414163445](/img/13-Distributed Monitoring/QQ截图20230414163445.png)
+
+Database X crashes
+
+![QQ截图20230414163501](/img/13-Distributed Monitoring/QQ截图20230414163501.png)
+
+Database Y doesn’t have an entry of the intro-to-system-design video
+
+![QQ截图20230414163518](/img/13-Distributed Monitoring/QQ截图20230414163518.png)
+
+The user requests to fetch a video
+
+![QQ截图20230414163532](/img/13-Distributed Monitoring/QQ截图20230414163532.png)
+
+The UI service in server A forwards the read request to Server B
+
+![QQ截图20230414163546](/img/13-Distributed Monitoring/QQ截图20230414163546.png)
+
+The database X crashes
+
+![QQ截图20230414163559](/img/13-Distributed Monitoring/QQ截图20230414163559.png)
+
+The video cannot be fetched as database is down
+
+![QQ截图20230414163619](/img/13-Distributed Monitoring/QQ截图20230414163619.png)
+
+The request is forwarded to database Y
+
+![QQ截图20230414163633](/img/13-Distributed Monitoring/QQ截图20230414163633.png)
+
+The database Y does not have any entry of this video
+
+![QQ截图20230414163646](/img/13-Distributed Monitoring/QQ截图20230414163646.png)
+
+The response of "Video not found" is returned to the UI server
+
+![QQ截图20230414163748](/img/13-Distributed Monitoring/QQ截图20230414163748.png)
+
+The response of "Video not found" is returned to the user
 
 The example above is relatively simple. In reality, complex problems are encountered since we have many data centers across the globe, and each has millions of servers. Due to a decreasing human administrators to servers ratio, it’s often not feasible to manually find the problems. Having a monitoring system reduces operational costs and encourages an automated way to detect failures.
 
@@ -38,7 +94,57 @@ Let’s consider an example to understand the types of errors we want to monitor
 
 How do the Educative developers find out that a learner is facing this error?
 
-![QQ截图20230408195616](/img/13-Distributed Monitoring/QQ截图20230408195616.png)
+![QQ截图20230414164158](/img/13-Distributed Monitoring/QQ截图20230414164158.png)
+
+The learner initiates a connection request to Educative
+
+![QQ截图20230414164209](/img/13-Distributed Monitoring/QQ截图20230414164209.png)
+
+Educative's front-end server initiates allocate container request
+
+![QQ截图20230414164222](/img/13-Distributed Monitoring/QQ截图20230414164222.png)
+
+Service 2 in server B allocates a container and informs service 1 in server A
+
+![QQ截图20230414164232](/img/13-Distributed Monitoring/QQ截图20230414164232.png)
+
+Service 1 in server A acknowledges the allocation
+
+![QQ截图20230414164243](/img/13-Distributed Monitoring/QQ截图20230414164243.png)
+
+Service 3 in server C receives the request to update the UI for the learner
+
+![QQ截图20230414164256](/img/13-Distributed Monitoring/QQ截图20230414164256.png)
+
+Service 3 in server C updates the UI for the learner
+
+![QQ截图20230414164308](/img/13-Distributed Monitoring/QQ截图20230414164308.png)
+
+The connection is established for the learner
+
+![QQ截图20230414164319](/img/13-Distributed Monitoring/QQ截图20230414164319.png)
+
+The learner initiates a connection request to Educative again
+
+![QQ截图20230414164330](/img/13-Distributed Monitoring/QQ截图20230414164330.png)
+
+Educative's front-end server initiates the request to allocate the container
+
+![QQ截图20230414164352](/img/13-Distributed Monitoring/QQ截图20230414164352.png)
+
+Server B fails due to some reason
+
+![QQ截图20230414164404](/img/13-Distributed Monitoring/QQ截图20230414164404.png)
+
+The front-end server waits for the learner’s UI to be updated
+
+![QQ截图20230414164418](/img/13-Distributed Monitoring/QQ截图20230414164418.png)
+
+The request times out
+
+![QQ截图20230414164431](/img/13-Distributed Monitoring/QQ截图20230414164431.png)
+
+The connection for the learner could not be established
 
 Now, what if a learner makes a request and it never reaches the servers of Educative. How will Educative know that a learner is facing an issue?
 

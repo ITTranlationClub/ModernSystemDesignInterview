@@ -21,7 +21,7 @@ As stated before, the DNS isn’t a single server that accepts requests and resp
 There are mainly four types of servers in the DNS hierarchy:
 
 1. **DNS resolver:** Resolvers initiate the querying sequence and forward requests to the other DNS name servers. Typically, DNS resolvers lie within the premise of the user’s network. However, DNS resolvers can also cater to users’ DNS queries through caching techniques, as we will see shortly. These servers can also be called local or default servers.
-2. **Root-level name servers:** These servers receive requests from local servers. Root name servers maintain name servers based on top-level domain names, such as `.com`, `.edu`, `.us`, and so on. For instance, when a user requests the IP address of [educative.io](http://educative.io/), root-level name servers will return a list of top-level domain (TLD) servers that hold the IP addresses of the `.io` domain.
+2. **Root-level name servers:** These servers receive requests from local servers. Root name servers maintain name servers based on top-level domain names, such as `.com`, `.edu`, `.us`, and so on. For instance, when a user requests the IP address of `educative.io`, root-level name servers will return a list of top-level domain (TLD) servers that hold the IP addresses of the `.io` domain.
 3. **Top-level domain (TLD) name servers:** These servers hold the IP addresses of authoritative name servers. The querying party will get a list of IP addresses that belong to the authoritative servers of the organization.
 4. **Authoritative name servers:** These are the organization’s DNS name servers that provide the IP addresses of the web or application servers.
 
@@ -33,11 +33,11 @@ Point to Ponder
 
 ###### Question
 
-How are DNS names processed? For example, will [educative.io](http://educative.io/) be processed from left to right or right to left?
+How are DNS names processed? For example, will `educative.io` be processed from left to right or right to left?
 
 Hide Answer
 
-Unlike UNIX files, which are processed from left to right, DNS names are processed from right to left. In the case of [educative.io](http://educative.io/), the resolvers will first resolve the `.io` part, then `educative`, and so on.Visually, however, the DNS hierarchy can be viewed as a tree.
+Unlike UNIX files, which are processed from left to right, DNS names are processed from right to left. In the case of `educative.io`, the resolvers will first resolve the `.io` part, then `educative`, and so on.Visually, however, the DNS hierarchy can be viewed as a tree.
 
 ### Iterative versus recursive query resolution
 
@@ -60,7 +60,7 @@ These days, we’ll find many third-party public DNS resolvers offered by Google
 
 ## Caching
 
-**Caching** refers to the temporary storage of frequently requested [resource records](https://www.educative.io/edpresso/what-is-the-difference-between-dns-a-record-and-cname). A ***record\*** is a data unit within the DNS database that shows a name-to-value binding. Caching reduces response time to the user and decreases network traffic. When we use caching at different hierarchies, it can reduce a lot of querying burden on the DNS infrastructure. Caching can be implemented in the browser, operating systems, local name server within the user’s network, or the ISP’s DNS resolvers.
+**Caching** refers to the temporary storage of frequently requested `resource records`. A **record** is a data unit within the DNS database that shows a name-to-value binding. Caching reduces response time to the user and decreases network traffic. When we use caching at different hierarchies, it can reduce a lot of querying burden on the DNS infrastructure. Caching can be implemented in the browser, operating systems, local name server within the user’s network, or the ISP’s DNS resolvers.
 
 The slideshow below demonstrates the power of caching in the DNS:
 
@@ -166,7 +166,7 @@ Let’s go through the meaning of the output:
 ### The `nslookup` output
 
 - The `Non-authoritative answer`, as the name suggests, is the answer provided by a server that is not the authoritative server of Google. It isn’t in the list of authoritative nameservers that Google maintains. So, where does the answer come from? The answer is provided by second, third, and fourth-hand name servers configured to reply to our DNS query—for example, our university or office DNS resolver, our ISP nameserver, our ISP’s ISP nameserver, and so on. In short, it can be considered as a cached version of Google’s authoritative nameservers response. If we try multiple domain names, we’ll realize that we receive a cached response most of the time.
-- If we run the same command multiple times, we’ll receive the same IP addresses list but in a different order each time. The reason for that is DNS is indirectly performing [load balancing](https://www.educative.io/collection/page/10370001/4941429335392256/4521972679049216). It’s an important term that we’ll gain familiarity with in the coming lessons.
+- If we run the same command multiple times, we’ll receive the same IP addresses list but in a different order each time. The reason for that is DNS is indirectly performing `load balancing`. It’s an important term that we’ll gain familiarity with in the coming lessons.
 
 ### The `dig` output
 

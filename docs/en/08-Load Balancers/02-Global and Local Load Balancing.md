@@ -104,7 +104,7 @@ As shown above, round-robin in DNS forwards clients to data centers in a strict 
 
 Despite its limitations, round-robin is still widely used by many DNS service providers. Furthermore, DNS uses short TTL for cached entries to do effective load balancing among different data centers.
 
-> **Note:** DNS isn’t the only form of GSLB. Application delivery controllers (ADCs) and cloud-based load balancing ([discussed later](https://www.educative.io/collection/page/10370001/4941429335392256/6596709789990912#Implementation-of-load-balancers)) are better ways to do GSLB.
+> **Note:** DNS isn’t the only form of GSLB. Application delivery controllers (ADCs) and cloud-based load balancing (discussed later) are better ways to do GSLB.
 
 Hide ADCs
 
@@ -133,6 +133,6 @@ Can DNS be considered a global server load balancer (GSLB)?
 
 Hide Answer
 
-Yes, there are actually two ways of doing global traffic management (GTM):**GTM through ADCs**: Some ADCs implement GSLB. In that case, ADCs have a real-time view of the hosting servers and forward requests based on the health and capacity of the data center.**GTM through DNS**: DNS does GSLB by analyzing the IP location of the client. For each user requesting IP for a domain name (for example, [www.educative.io](http://www.educative.io/)), DNS-based GSLB forwards the IP address of the data center geographically closer to the requesting IP location.
+Yes, there are actually two ways of doing global traffic management (GTM):**GTM through ADCs**: Some ADCs implement GSLB. In that case, ADCs have a real-time view of the hosting servers and forward requests based on the health and capacity of the data center.**GTM through DNS**: DNS does GSLB by analyzing the IP location of the client. For each user requesting IP for a domain name (for example, www.educative.io), DNS-based GSLB forwards the IP address of the data center geographically closer to the requesting IP location.
 
 In the next lesson, we’ll explore some advanced details of local load balancers.

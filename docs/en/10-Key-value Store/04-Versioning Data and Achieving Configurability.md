@@ -89,13 +89,41 @@ Suppose the network partition is repaired, and the client requests a write again
 
 ![QQ截图20230408182234](/img/10-Key-value Store/QQ截图20230408182234.png)
 
-![QQ截图20230408182027](/img/10-Key-value Store/QQ截图20230408182027.png)
+Let’s suppose that we have three nodes. The vector clock counter is set to 1 for all of them
+
+![QQ截图20230413214956](/img/10-Key-value Store/QQ截图20230413214956.png)
+
+Node A handles the first version of the write request, E1, and the vector clock counter is increased by 1
+
+![QQ截图20230413215007](/img/10-Key-value Store/QQ截图20230413215007.png)
+
+Node A handles the second version of the write request, E2, and the vector clock counter is increased by 2
+
+![QQ截图20230413215025](/img/10-Key-value Store/QQ截图20230413215025.png)
+
+Let’s suppose that a network partition happens
+
+![QQ截图20230413215036](/img/10-Key-value Store/QQ截图20230413215036.png)
+
+Now, the request is handled by Nodes B and C, and their respective vector clock counter is increased
+
+![QQ截图20230413215050](/img/10-Key-value Store/QQ截图20230413215050.png)
+
+Let’s suppose that the network has now been repaired
+
+![QQ截图20230413215102](/img/10-Key-value Store/QQ截图20230413215102.png)
+
+The request is sent to Node A to be processed, but now it has conflicts. We ask the client to resolve it
+
+![QQ截图20230413215115](/img/10-Key-value Store/QQ截图20230413215115.png)
+
+The request is updated after reconciliation
 
 ### Compromise with vector clocks limitations
 
-The size of vector clocks may increase if multiple servers write to the same object simultaneously. It’s unlikely to happen in practice because writes are typically handled by one of the top �*n* nodes in a preference list.
+The size of vector clocks may increase if multiple servers write to the same object simultaneously. It’s unlikely to happen in practice because writes are typically handled by one of the top *n* nodes in a preference list.
 
-![QQ截图20230408182343](/img/10-Key-value Store/QQ截图20230408182343.png)
+For example, if there are network partitions or multiple server failures, write requests may be processed by nodes not in the top n nodes in the preference list. As a result we can have a long version like this: ([A,10],[B,4],[C,1],[D,2],[E,1],[F,3],[G,5],[H,7],[I,2],[J,2],[K,1],[L,1]). It’s a hassle to store and maintain such a long version history.
 
 We can limit the size of the vector clock in these situations. We employ a clock truncation strategy to store a timestamp with each (node, counter) pair to show when the data item was last updated by the node. Vector clock pairs are purged when the number of (node, counter) pairs exceeds a predetermined threshold (let’s say 10). Because the descendant linkages can’t be precisely calculated, this truncation approach can lead to a lack of efficiency in reconciliation.
 
@@ -133,7 +161,17 @@ The following table gives an overview of how the values of *n*, *r*, and *w* aff
 
 Let’s say *n*=3, which means we have three nodes where the data is copied to. Now, for *w*=2, the operation makes sure to write in two nodes to make this request successful. For the third node, the data is updated asynchronously.
 
-![QQ截图20230408182052](/img/10-Key-value Store/QQ截图20230408182052.png)
+![QQ截图20230414143942](/img/10-Key-value Store/QQ截图20230414143942.png)
+
+We have a replication factor of 3 and w is 2. The key “K” will be replicated to A, B, and C
+
+![QQ截图20230414143953](/img/10-Key-value Store/QQ截图20230414143953.png)
+
+Since w=2, we’ll write in the first two nodes, then send an acknowledgment to the user or client
+
+![QQ截图20230414144016](/img/10-Key-value Store/QQ截图20230414144016.png)
+
+For the third node, we’ll write/replicate the data asynchronously
 
 In this model, the latency of a get operation is decided by the slowest of the *r* replicas. The reason is that for the larger value of *r*, we focus more on availability and compromise consistency.
 

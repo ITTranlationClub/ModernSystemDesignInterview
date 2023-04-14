@@ -79,6 +79,12 @@ It’s possible to keep clock drift consistently small using GPS and atomic cloc
 
 ## Use UNIX time stamps
 
+```
+UNIX time stamps are granular to the millisecond and can be used to distinguish different events. We have an ID-generating server that can generate one ID in a single millisecond. Any request to generate a unique ID is routed to that server, which returns a time stamp and then returns a unique ID. The ability to generate an ID in milliseconds allows us to generate a thousand identifiers per second. This means we can get 
+24(hour)∗60(min/hour)∗60(sec/min)∗1000(ID/sec)=86400000IDs
+ in a day. That’s less than a billion per day.
+```
+
 ![QQ截图20230408193801](/img/12-Sequencer/QQ截图20230408193801.png)
 
 > **Note:** Connect to the following terminal to view the UNIX time stamp in milliseconds.
@@ -118,15 +124,49 @@ The explanation of the bits division is as follows:
 
 • **Sign bit**: A single bit is assigned as a sign bit, and its value will always be zero. It makes the overall number positive. Doing so helps to ensure that any programming environment using these identifiers interprets them as positive integers.
 
+```
+Time stamp: 41 bits are assigned for milliseconds. The Twitter Snowflake default epoch will be used. Its value is 
+1288834974657
+1288834974657
+, which is equivalent to November 4, 2010, 01:42:54 UTC. We can initiate our own epoch when our system will be deployed, say January 1, 2022, at 12 midnight can be the start of our epoch from zero. The maximum time to deplete this range is shown below:
+
+Time to range depletion = 
+ ~= 69 years
+ 
+ The above calculations give us 69 years before we need a new algorithm to generate IDs. As we saw earlier, if we can generate 1,000 identifiers per second, we aren’t able to get our target of a billion identifiers per day. Though now, in the Snowflake proposal, we have ample identifiers available when we utilize worker ID and machine local sequence numbers.
+
+• Worker number: The worker number is 10 bits. It gives us 
+
+ = 1,024 worker IDs. The server creating the unique ID for its events will attach its ID.
+
+• Sequence number: The sequence number is 12 bits. For every ID generated on the server, the sequence number is incremented by one. It gives us 
+ 
+ = 4,096 unique sequence numbers. We’ll reset it to zero when it reaches 4,096. This number adds a layer to avoid duplication.
+```
+
 ![QQ截图20230408193858](/img/12-Sequencer/QQ截图20230408193858.png)
 
 The following slides show the conversion of the time stamp to UTC.
 
-* Overview of the division of bits
-* Convert the time to UTC
-* Convert the bits to decimal
-* Convert the decimal to epoch
-* Convert milliseconds to UTC
+![QQ截图20230414161227](/img/12-Sequencer/QQ截图20230414161227.png)
+
+Overview of the division of bits
+
+![QQ截图20230414161250](/img/12-Sequencer/QQ截图20230414161250.png)
+
+Convert the time to UTC
+
+![QQ截图20230414161304](/img/12-Sequencer/QQ截图20230414161304.png)
+
+Convert the bits to decimal
+
+![QQ截图20230414161319](/img/12-Sequencer/QQ截图20230414161319.png)
+
+Convert the decimal to epoch
+
+![QQ截图20230414161336](/img/12-Sequencer/QQ截图20230414161336.png)
+
+Convert milliseconds to UTC
 
 ### Pros
 
@@ -192,9 +232,63 @@ The following slides explain the unique ID generation using vector clocks, where
 > [vector-clock][worker-id]
 > ```
 
-![QQ截图20230408194711](/img/12-Sequencer/QQ截图20230408194711.png)
+![QQ截图20230414161611](/img/12-Sequencer/QQ截图20230414161611.png)
 
-Our approach with vector clocks works. However, in order to completely capture causality, a vector clock must be at least �*n* nodes in size. As a result, when the total number of participating nodes is enormous, vector clocks require a significant amount of storage. Some systems nowadays, such as web applications, treat every browser as a client of the system. Such information increases the ID length significantly, making it difficult to handle, store, use, and scale.
+No event is currently in progress
+
+![QQ截图20230414161623](/img/12-Sequencer/QQ截图20230414161623.png)
+
+Unique ID for A1: [1,0,0][A]
+
+![QQ截图20230414161642](/img/12-Sequencer/QQ截图20230414161642.png)
+
+Unique ID for C1: [0,0,1][C]
+
+![QQ截图20230414161658](/img/12-Sequencer/QQ截图20230414161658.png)
+
+Unique ID for B1: [1,1,0][B]
+
+![QQ截图20230414161715](/img/12-Sequencer/QQ截图20230414161715.png)
+
+No new ID needs to be assigned
+
+![QQ截图20230414161733](/img/12-Sequencer/QQ截图20230414161733.png)
+
+Unique ID for C2: [0,0,2][C]
+
+![QQ截图20230414161756](/img/12-Sequencer/QQ截图20230414161756.png)
+
+Unique ID for B2: [1,2,0][B]
+
+![QQ截图20230414161817](/img/12-Sequencer/QQ截图20230414161817.png)
+
+Unique ID for A2: [2,0,0][A]
+
+![QQ截图20230414161830](/img/12-Sequencer/QQ截图20230414161830.png)
+
+Unique ID for C3: [0,0,3][C]
+
+![QQ截图20230414161844](/img/12-Sequencer/QQ截图20230414161844.png)
+
+No new ID needs to be assigned
+
+![QQ截图20230414161859](/img/12-Sequencer/QQ截图20230414161859.png)
+
+Unique ID for C4: [1,1,4][C]
+
+![QQ截图20230414161912](/img/12-Sequencer/QQ截图20230414161912.png)
+
+Unique ID for C5: [1,1,5][C]
+
+![QQ截图20230414161924](/img/12-Sequencer/QQ截图20230414161924.png)
+
+Unique ID for A3: [3,1,5][A]
+
+![QQ截图20230414161936](/img/12-Sequencer/QQ截图20230414161936.png)
+
+No new ID needs to be assigned
+
+Our approach with vector clocks works. However, in order to completely capture causality, a vector clock must be at least *n* nodes in size. As a result, when the total number of participating nodes is enormous, vector clocks require a significant amount of storage. Some systems nowadays, such as web applications, treat every browser as a client of the system. Such information increases the ID length significantly, making it difficult to handle, store, use, and scale.
 
 ## Requirements Fulfilled by Each Approach
 
@@ -227,17 +321,82 @@ Google deploys a GPS receiver or atomic clock in each data center, and clocks ar
 
 The following slides explain how TrueTime’s time master servers work with GPS and atomic clocks in multiple data centers.
 
-![QQ截图20230408194738](/img/12-Sequencer/QQ截图20230408194738.png)
+![QQ截图20230414162343](/img/12-Sequencer/QQ截图20230414162343.png)
+
+In every data center, we have time handlers. GPS timemasters have GPS receivers attached, and few of them have atomic clocks
+
+![QQ截图20230414162357](/img/12-Sequencer/QQ截图20230414162357.png)
+
+A client needs a TrueTime
+
+![QQ截图20230414162410](/img/12-Sequencer/QQ截图20230414162410.png)
+
+A client runs a daemon. The daemon contacts mostly GPS time masters and sometimes will contact atomic clock time masters to get the redundancy of different time references
+
+![QQ截图20230414162422](/img/12-Sequencer/QQ截图20230414162422.png)
+
+We run Marzullo's algorithm, which intersects time intervals to determine a time reference. The API gives an interval from earliest to latest
+
+![QQ截图20230414162435](/img/12-Sequencer/QQ截图20230414162435.png)
+
+The time reference will express a given interval as plus or minus epsilon
 
 The following slides explain how time is calculated when the client asks to give TrueTime.
 
-* Before the client asks for TrueTime
-* Compute epsilon at time zero
-* We’ll assume that the clock drifts at most, 200 microseconds per second. This means we’ll roughly add 6 milliseconds (ms) on to the value of epsilon over 30 seconds
-* Compute epsilon at 30 seconds
-* In the next 30 seconds, we communicate to the time master as reference uncertainty is computed, and it increases at the rate of 200 microseconds per second
-* Compute epsilon at 60 seconds
-* Again, the computed reference uncertainty increases at the rate of 200 microseconds per second
+![QQ截图20230414162625](/img/12-Sequencer/QQ截图20230414162625.png)
+
+Before the client asks for TrueTime
+
+![QQ截图20230414162635](/img/12-Sequencer/QQ截图20230414162635.png)
+
+Compute epsilon at time zero
+
+![QQ截图20230414162652](/img/12-Sequencer/QQ截图20230414162652.png)
+
+We’ll assume that the clock drifts at most, 200 microseconds per second. This means we’ll roughly add 6 milliseconds (ms) on to the value of epsilon over 30 seconds
+
+![QQ截图20230414162702](/img/12-Sequencer/QQ截图20230414162702.png)
+
+Compute epsilon at 30 seconds
+
+![QQ截图20230414162714](/img/12-Sequencer/QQ截图20230414162714.png)
+
+In the next 30 seconds, we communicate to the time master as reference uncertainty is computed, and it increases at the rate of 200 microseconds per second
+
+![QQ截图20230414162844](/img/12-Sequencer/QQ截图20230414162844.png)
+
+Compute epsilon at 60 seconds
+
+![QQ截图20230414162859](/img/12-Sequencer/QQ截图20230414162859.png)
+
+Again, the computed reference uncertainty increases at the rate of 200 microseconds per second
+
+```
+Spanner guarantees that two confidence intervals don’t overlap (that is, 
+earliest
+latest
+earliest
+latest
+), then B definitely happened after A.
+
+We generate our unique ID using TrueTime intervals. Let’s say the earliest interval is 
+, the latest is 
+ 
+, and the uncertainty is ε. We use 
+ in milliseconds as a time stamp in our unique ID.
+
+Time stamp: The time stamp is 41 bits. We use 
+ as a time stamp.
+
+Uncertainty: The uncertainty is four bits. Since the maximum uncertainty is claimed to be 6–10 ms, we’ll use four bits for storing it.
+
+Worker number: This is 10 bits. It gives us 
+ 
+ = 1,024 worker IDs.
+
+Sequence number: This is eight bits. For every ID generated on the server, the sequence number is incremented by one. It gives us 
+ = 256 combinations. We’ll reset it to zero when it reaches 256.
+```
 
 ![QQ截图20230408195032](/img/12-Sequencer/QQ截图20230408195032.png)
 

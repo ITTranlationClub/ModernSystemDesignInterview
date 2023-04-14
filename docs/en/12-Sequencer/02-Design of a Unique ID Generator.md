@@ -6,26 +6,41 @@ typora-root-url: ..
 
 Learn how to design a system that generates a unique ID.
 
-In the [previous](https://www.educative.io/collection/page/10370001/4941429335392256/6499939719053312) lesson, we saw that we need unique identifiers for many use cases, such as identifying objects (for example, Tweets, uploaded videos, and so on) and tracing the execution flow in a complex web of services. Now, we’ll formalize the requirements for a unique identifier and discuss three progressively improving designs to meet our requirements.
+In the previous lesson, we saw that we need unique identifiers for many use cases, such as identifying objects (for example, Tweets, uploaded videos, and so on) and tracing the execution flow in a complex web of services. Now, we’ll formalize the requirements for a unique identifier and discuss three progressively improving designs to meet our requirements.
 
 ## Requirements for unique identifiers
 
 The requirements for our system are as follows:
 
 - **Uniqueness**: We need to assign unique identifiers to different events for identification purposes.
-
 - **Scalability**: The ID generation system should generate at least a billion unique IDs per day.
-
 - **Availability**: Since multiple events happen even at the level of nanoseconds, our system should generate IDs for all the events that occur.
 
 
 ![QQ截图20230408191839](/img/12-Sequencer/QQ截图20230408191839.png)
 
+```
+64-bit numeric ID: We restrict the length to 64 bits because this bit size is enough for many years in the future. Let’s calculate the number of years after which our ID range will wrap around.
+Total numbers available = 
+Estimated number of events per day = 1 billion = 
+Number of events per year = 365 billion = 
+Number of years to deplete identifier range = 
+64 bits should be enough for a unique ID length considering these calculations.
+```
+
 Let’s dive into the possible solutions for the problem mentioned above.
 
 ## First solution: UUID
 
-![QQ截图20230408192758](../img/12-Sequencer/QQ截图20230408192758.png)
+```
+A straw man solution for our design uses UUIDs (universally unique IDs). This is a 128-bit number and it looks like 
+456426614174000
+123e4567e89b12d3a456426614174000
+ in hexadecimal. It gives us about
+ numbers. UUIDs have different versions. We opt for version 4, which generates a pseudorandom number.
+```
+
+![QQ截图20230408192758](/img/12-Sequencer/QQ截图20230408192758.png)
 
 Each server can generate its own ID and assign the ID to its respective event. No coordination is needed for UUID since it’s independent of the server. Scaling up and down is easy with UUID, and this system is also highly available. Furthermore, it has a low probability of collisions. The design for this approach is given below:
 

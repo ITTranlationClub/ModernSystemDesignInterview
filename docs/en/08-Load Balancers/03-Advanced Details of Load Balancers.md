@@ -185,7 +185,7 @@ With the advent of the field of cloud computing, Load Balancers as a Service (LB
 
 GSLB is obtained through LBaaS, and the regions contain data centers that are the property of application providers
 
-> **Note:** Another interesting implementation of load balancers comes in the form of **client-side load balancing**. Client-side load balancing is suited where there are numerous services, each with many instances (such as [load balancing in Twitter](https://www.educative.io/collection/page/10370001/4941429335392256/5379128533975040)). Our focus, however, is on traditional load balancers because most three-tier applications employ these in their design.
+> **Note:** Another interesting implementation of load balancers comes in the form of **client-side load balancing**. Client-side load balancing is suited where there are numerous services, each with many instances (such as load balancing in Twitter). Our focus, however, is on traditional load balancers because most three-tier applications employ these in their design.
 
 ## Conclusion
 
