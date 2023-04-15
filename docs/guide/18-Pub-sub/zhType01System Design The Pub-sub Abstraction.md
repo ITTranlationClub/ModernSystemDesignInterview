@@ -1,3 +1,7 @@
+---
+typora-root-url: ..
+---
+
 # 系统设计：发布-订阅(Pub-sub)抽象
 
 了解设计发布-订阅系统的基础知识。
@@ -10,7 +14,7 @@
 
 ![thePubSubSystem](/img/18-Pub-sub/thePubSubSystem.png)
 
-发布-订阅系统
+<center>发布-订阅系统</center>
 
 ## 动机
 

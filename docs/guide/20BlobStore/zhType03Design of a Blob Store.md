@@ -1,3 +1,7 @@
+---
+typora-root-url: ..
+---
+
 typora-root-url: ..
 
 # 设计Blob存储库
