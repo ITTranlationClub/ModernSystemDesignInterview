@@ -1,3 +1,7 @@
+---
+typora-root-url: ..
+---
+
 # CDN设计
 
 让我们了解CDN系统的基本设计。
@@ -26,36 +30,33 @@
 
 ![QQ截图20230408184508](/img/11-Content Delivery Network (CDN)/QQ截图20230408184508.png)
 
-CDN组件
+<center>CDN组件</center>
 
 ### 工作流程
 
 抽象设计的工作流程如下：
 
-1. 源服务器为CDN中缓存的所有对象提供URI命名空间委派给请求路由系统。
-
+1. 源服务器将所有缓存在CDN中的对象的URI命名空间委托给请求路由系统。
 2. 源服务器将内容发布到负责在活动边缘代理服务器之间分发数据的分发系统。
-
-3. 分发系统在代理服务器之间分发内容，并向请求路由系统提供反馈。此反馈有助于优化为请求客户端选择最近的代理服务器。此反馈包含有关在哪个代理服务器上缓存了哪些内容，以将流量路由到相关代理服务器的信息。
-
-4. 客户端请求请求路由系统寻找适合的代理服务器。
-
+3. 分发系统在代理服务器之间分发内容，并向请求路由系统提供反馈。此反馈有助于优化为请求客户端选择最近的代理服务器。此反馈包含有关缓存在哪个代理服务器上的哪些内容以将流量路由到相关代理服务器的信息。
+4. 客户端请求请求路由系统以获取适当的代理服务器。
 5. 请求路由系统返回适当代理服务器的IP地址。
+6. 由于安全原因，客户端请求通过Scrubber服务器进行路由。
+7. Scrubber服务器将良好的流量转发到边缘代理服务器。
+8. 边缘代理服务器为客户端请求提供服务，并定期向管理系统转发计费信息。管理系统更新源服务器，并向路由系统发送有关内容的统计和详细信息的反馈。但是，如果代理服务器中没有内容，则将请求路由到源服务器。如果在边缘代理服务器中找不到内容，则还可以拥有代理服务器层次结构。对于这种情况，请求将被转发到父代理服务器。
 
-6. 客户端请求通过清洗服务器进行安全检查。
+## API设计
 
-7. 清洗服务器将良好流量转发到边缘代理服务器。# CDN架构API设计
+本节将讨论CDN提供的功能的API设计。这将帮助我们了解CDN将如何从客户端接收请求，从源服务器接收内容以及与网络中的其他组件通信。让我们为以下每个功能开发API：
 
-本节将讨论CDN所提供的功能的API设计。这将帮助我们了解CDN如何从客户端接收请求，从原始服务器接收内容并与网络中的其他组件通信。让我们为以下每个功能开发API：
-
-- 检索内容
-- 传送内容
+- 获取内容
+- 交付内容
 - 请求内容
 - 搜索内容
 - 更新内容
 - 删除内容
 
-内容可以是任何东西，例如文件、视频、音频或其他网络对象。在这里，我们将使用“内容”一词来指所有这些内容。为了清晰起见，在下面的API中，我们不会讨论与隐私相关的参数，例如内容是否公开或私有，谁可以访问此内容，是否应该加密等。
+内容可以是任何东西，如文件、视频、音频或其他Web对象。在这里，我们将使用“内容”一词来指代所有上述内容。为了清晰起见，以下API不会讨论与隐私相关的参数，例如内容是公共的还是私人的，谁应该能够访问此内容，是否应该加密等等。
 
 ### 检索（代理服务器到原始服务器）
 
@@ -66,8 +67,6 @@ retrieveContent(proxyserver_id, content_type, content_version, description)
 ```
 
 让我们看看参数的细节：
-
-## 参数详细信息
 
 | **参数**          | **描述**                                                     |
 | ----------------- | ------------------------------------------------------------ |
@@ -99,10 +98,88 @@ retrieveContent(proxyserver_id, content_type, content_version, description)
 deliverContent(origin_id, server_list, content_type, content_version, description)
 ```
 
-## 参数详细信息
-
-| **参数**          | **描述**                                                     |
+| **参数**          | **说明**                                                     |
 | ----------------- | ------------------------------------------------------------ |
-| `origin_id`       | 这唯一地标识每个原始服务器。                                 |
-| `server_list`     | 此确定内容将被分发系统推送到的服务器列表。                |
-| `content_version` | 这表示原始服务器上内容的更新版本。接收内容的代理服务器将丢弃先前版本。 |其余的参数已经在上面解释过了。### 请求（客户端到代理服务器）用户使用此API从代理服务器请求内容。我们将其称为`/requestContent` API:```requestContent(user_id, content_type, description)```## 参数详情| **参数**      | **描述**                                              || ------------ | ------------------------------------------------------------ || `user_id`     | 这是请求内容的用户的唯一ID。 |指定的代理服务器响应上述API以向请求的用户返回特定内容.Hide file```"Object_links": [                 {                 "name": "components"                 "link": https://cdn.app_server.com/api/components/                 },                 {                 "name": "css"                 "link": https://cdn.app_server.com/api/css/                 },                 {                 "name": "illustrations"                 "link": https://cdn.app_server.com/api/assets/illustrations/                 },                 {                 "name": "videos"                 "link": https://cdn.app_server.com/api/assets/videos/                 },                 {                 "name": "icons"                 "link": https://cdn.app_server.com/api/icons/                 },                 {                 "name": "fonts"                 "link": https://cdn.app_server.com/api/fonts/                 },                ]```### 搜索（代理服务器到同一PoP的对等代理服务器）虽然代理服务器首先在本地搜索内容，但代理服务器也可以通过`/searchContent` API在同一PoP的对等代理服务器中探测请求的内容。这可能会向PoP中的所有代理服务器洪泛查询。或者，我们可以使用PoP中的数据存储来查询内容，而代理服务器将需要维护哪些内容可在哪个代理服务器上使用。`/searchContent` API如下所示：```searchContent(proxyserver_id, content_type, description)```### 更新（代理服务器到同一PoP的对等代理服务器）代理服务器使用`/updateContent` API来更新在PoP中的对等代理服务器中指定的内容。当在CDN上运行指定的隔离脚本以提供图像缩放、视频分辨率转换、安全性和许多其他服务时，它会这样做。这种类型的脚本称为无服务器脚本。`/updateContent` API如下所示：```updateContent(proxyserver_id, content_type, description)```## 参数详情| **参数**         | **描述**                                              || ----------------- | ------------------------------------------------------------ || `porxyserver_id` | 这个参数可以唯一地识别PoP中的代理服务器来更新内容。 |其余的参数已经在上面解释过了。> **注**：这里没有讨论删除API。在我们的缓存章节中，我们详细讨论了不同的驱逐机制。这些机制也适用于CDN内容逐出。尽管如此，可能出现需要Delete API的情况。我们将在下一课中讨论一些内容一致性机制，如内容在缓存中停留的时间。在即将到来的课程中，我们将深入探讨CDN的特点。
+| `origin_id`       | 这个参数独特地识别每个源服务器。                             |
+| `server_list`     | 这个参数标识了内容将被分发系统推送到的服务器列表。           |
+| `content_version` | 这个参数表示源服务器上的更新后的内容版本。接收到内容的代理服务器将放弃之前的版本。 |
+
+其余的参数已经在上面解释过了。
+
+### 请求（客户端到代理服务器）
+
+用户使用此API从代理服务器请求内容。我们将其称为`/requestContent` API：
+
+```
+scssCopy code
+requestContent(user_id, content_type, description)
+```
+
+| **参数**  | **说明**                 |
+| --------- | ------------------------ |
+| `user_id` | 请求内容的用户的唯一ID。 |
+
+指定的代理服务器将根据上述API向请求的用户返回特定的内容。
+
+隐藏文件
+
+```
+rubyCopy code"Object_links": [
+                 {
+                 "name": "components"
+                 "link": https://cdn.app_server.com/api/components/
+                 },
+                 {
+                 "name": "css"
+                 "link": https://cdn.app_server.com/api/css/
+                 },
+                 {
+                 "name": "illustrations"
+                 "link": https://cdn.app_server.com/api/assets/illustrations/
+                 },
+                 {
+                 "name": "videos"
+                 "link": https://cdn.app_server.com/api/assets/videos/
+                 },
+                 {
+                 "name": "icons"
+                 "link": https://cdn.app_server.com/api/icons/
+                 },
+                 {
+                 "name": "fonts"
+                 "link": https://cdn.app_server.com/api/fonts/
+                 },
+                ]
+```
+
+### 搜索（代理服务器到对等代理服务器）
+
+虽然内容首先在代理服务器本地搜索，但代理服务器也可以通过`/searchContent` API在同一PoP中的对等代理服务器中探测请求的内容。这可能会向PoP中所有代理服务器洪泛查询。或者，我们可以在PoP中使用数据存储来查询内容，尽管代理服务器需要维护哪个内容可用于哪个代理服务器。
+
+`/searchContent` API如下所示：
+
+```
+scssCopy code
+searchContent(proxyserver_id, content_type, description)
+```
+
+### 更新（代理服务器到对等代理服务器）
+
+代理服务器使用`/updateContent` API在PoP中的指定对等代理服务器中更新指定内容。当在CDN上运行指定的隔离脚本以提供图像调整大小、视频分辨率转换、安全性和许多其他服务时，就会这样做。这种类型的脚本称为无服务器脚本。
+
+`/updateContent` API如下所示：
+
+```
+scssCopy code
+updateContent(proxyserver_id, content_type, description)
+```
+
+| **参数**         | **说明**                                        |
+| ---------------- | ----------------------------------------------- |
+| `porxyserver_id` | 此参数在PoP中唯一识别对等代理服务器以更新内容。 |
+
+其余的参数已经在上面解释过了。
+
+> 注意：此处未讨论删除API。在我们的缓存章节中，我们详细讨论了不同的清除机制。这些机制也适用于CDN内容清除。尽管如此，可能会出现需要使用删除API的情况。在下一节中，我们将讨论一些内容一致性机制，例如内容在缓存中停留的时间。
+
+在即将到来的课程中，我们将深入探讨CDN的特点。
