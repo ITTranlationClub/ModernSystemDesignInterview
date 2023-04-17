@@ -1,5 +1,5 @@
 ---
-icon: contactGroup
+icon: codestring
 title: 故障模型
 ---
 

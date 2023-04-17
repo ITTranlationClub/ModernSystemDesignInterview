@@ -1,5 +1,5 @@
 ---
-icon: contactGroup
+icon: license
 title: 网络抽象:远程过程调用
 ---
 

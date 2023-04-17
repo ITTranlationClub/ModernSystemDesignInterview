@@ -1,74 +1,145 @@
-For storage estimation, we need to calculate the total storage required for storing videos and thumbnails uploaded on a daily basis by YouTube users. Using our assumptions, we can calculate the total amount of storage required as follows: 
+---
+typora-root-url: ..
+---
 
-- Total storage required for videos uploaded per day = 250,000 videos * 50 MB per video = 12,500,000 MB or 12.5 TB
-- Total storage required for thumbnails uploaded per day = 250,000 videos * 20 KB per thumbnail (assuming one thumbnail per video) = 5,000,000 KB or 4.88 GB
+# Blob Store设计的要求
 
-Therefore, the total storage required per day for YouTube data would be 12.5 TB + 4.88 GB = 12.5 TB.
+识别Blob Store的要求并进行估算。
 
-### Bandwidth estimation
+## 要求
 
-To estimate the required bandwidth for a blob store system for storing YouTube data, we need to consider the number of read requests made by users per day. Using our assumptions, we can calculate the total bandwidth required as follows:
+让我们了解以下功能和非功能要求：
 
-- Bandwidth required for read requests per day = 5 million daily active users * 20 read requests per user * (50 MB per video + 20 KB per thumbnail) = 20.5 PB per day
+### 功能需求
 
-Therefore, a blob storage system dedicated to storing YouTube data would require 20.5 PB of daily bandwidth.
+以下是Blob Store设计的功能需求：
 
-## Conclusion
+- **创建容器**：用户应该能够创建容器以分组Blob。例如，如果一个应用程序想要存储特定于用户的数据，它应该能够将不同用户账户的Blob存储在不同的容器中。此外，用户可能想要将视频Blob分组并与图像Blob分开。一个Blob Store用户可以创建多个容器，每个容器可以有多个Blob，如下图所示。为了简化起见，我们假设我们不能在容器内部创建容器。
 
-In conclusion, a blob store must fulfill specific functional and non-functional requirements to handle the storage of large unstructured data like videos, images, documents, and audio files. It must also be able to scale up to accommodate increasing data volumes while ensuring data availability, durability, consistency, and reliability. Finally, we estimated the number of servers, storage, and bandwidth required by a blob store system based on assumptions using YouTube as an example.考虑上述假设，我们使用下面的公式来计算YouTube每天所需的总存储空间：
+  ![QQ截图20230409211915](/img/20-Blob%20Store/QQ%E6%88%AA%E5%9B%BE20230409211915.png)
 
-$$Total_{storage/day}=No.ofVideos/day*(Storage/video+Storage/thumbnail)$$
+  <center>与单个存储帐户关联的多个容器，以及单个容器内的多个Blob</center>
 
-将上面的数字代入公式中，得到每天大约需要12.51 TB 的存储空间，用于存储上传的视频的单个分辨率的单个副本。
+- **存储数据**：Blob Store应该允许用户将Blob上传到创建的容器中。
 
-#### 存储上传到YouTube每天的视频和缩略图所需的总存储空间
+- **获取数据**：系统应该为上传的Blob生成一个URL，以便用户以后可以通过此URL访问该Blob。
 
-| 每天的视频数量 | 视频每个的存储空间 (MB) | 缩略图每个的存储空间 (KB) | 每天总存储空间 (TB) |
-| --------------------- | ---------------------- | -------------------------- | -------------------------- |
-| 250000                | 50                     | 20                         | 12.51                      |
+- **删除数据**：用户应该能够删除Blob。如果用户想在指定的时间段（保留时间）内保留数据，我们的系统应该支持此功能。
+
+- **列出Blobs**：用户应该能够获取特定容器中所有Blob的列表。
+
+- **删除容器**：用户应该能够删除一个容器以及其中的所有Blob。
+
+- **列出容器**：系统应该允许用户列出特定账户下的所有容器。
+
+  ![QQ截图20230409212012](/img/20-Blob Store/QQ截图20230409212012.png)
+
+  <center>Blob Store的功能需求</center>
+
+### 非功能性要求
+
+以下是一个 Blob 存储系统的非功能性要求：
+
+- **可用性：** 我们的系统应该高度可用。
+- **耐久性：** 一旦上传数据，除非用户显式删除该数据，否则不应该丢失。
+- **可扩展性：** 该系统应该能够处理数十亿个 Blob。
+- **吞吐量：** 对于传输几 GB 的数据，我们应该确保高吞吐量。
+- **可靠性：** 由于故障在分布式系统中是正常现象，我们的设计应该能够及时检测并恢复故障。
+- **一致性：** 该系统应该具有强一致性。不同的用户应该看到相同的 Blob 视图。
+
+![QQ截图20230409212031](/img/20-Blob Store/QQ截图20230409212031.png)
+
+<center>一个 Blob 存储的非功能性要求</center>
+
+## 资源估算
+
+让我们估算一下 Blob 存储系统所需的服务器、存储和带宽总数。
+
+由于 Blob 可以具有各种数据，因此在我们的估算中提及所有这些数据类型可能不切实际。
+
+因此，我们将使用 YouTube 作为示例，该平台将视频和缩略图存储在 Blob 存储中。
+
+此外，我们将做出以下假设，以完成我们的估算。
+
+**假设：**
+
+- 每天上传或观看视频的活跃用户数为 500 万。
+- 单个 Blob 存储服务器每秒可处理的请求数为 500。
+- 视频的平均大小为 50 MB。
+- 缩略图的平均大小为 20 KB。
+- 每天上传的视频数量为 25 万。
+- 单个用户每天的读取请求次数为 20。
+
+### 服务器数量估算
+
+根据我们的假设，我们使用每日活跃用户数（DAU）和 Blob 存储服务器每秒处理的查询数来估算所需的服务器数量。
+
+我们使用以下公式计算所需的服务器数量：
+$$
+\frac{NumberOfActiveUsers}{QueriesHandledPerServer}=10Kservers
+$$
+Blob 存储系统专用于存储 YouTube 数据所需的服务器数量
+
+### 存储空间估算
+
+考虑上述假设，我们使用以下公式计算 YouTube 在一天内所需的总存储空间：
+
+> $$
+> Total_{storage/day}=No.ofVideos/day*(Storage/video+Storage/thumbnail)
+> $$
+> 
+
+将上面的数字代入公式，我们得到每天约为 12.51 TB 的存储空间，用于在单个分辨率下保存上传的视频的单个副本。
+
+#### 存储视频和缩略图所需的总存储空间
+
+| 每天上传的视频数量 | 每个视频的存储空间 (MB) | 每个缩略图的存储空间 (KB) | 每天所需的存储空间 (TB) |
+| ------------------ | ----------------------- | ------------------------- | ----------------------- |
+| 250000             | 50                      | 20                        | 12.51                   |
 
 ### 带宽估算
 
 让我们估算上传和检索数据所需的带宽。
 
-**入站流量**: 为了估算入站流量所需的带宽，我们考虑每天上传的总数据量，这间接意味着我们上面计算的每天所需的总存储空间。每秒传输到服务器的数据量可以使用以下公式计算：
+**入站流量：** 为了估算入站流量所需的带宽，我们考虑每天上传的总数据量，间接地意味着我们上面计算出的每天所需的总存储空间。每秒传输到服务器的数据量可以使用以下公式计算：
 
-$$Total_{bandwidth}=\frac{Total_{storage_day}}{24*60*60}$$
+> $$
+> Total_{bandwidth}=\frac{Total_{storage_day}}{24*60*60}
+> $$
 
-#### 在YouTube上传视频所需的带宽
+#### YouTube 上传视频所需的带宽
 
-| 每天总存储空间 (TB) | 一天的秒数 | 带宽 (Gb/s) |
-| -------------------------- | ---------------- | ---------------- |
-| 12.51                      | 86400            | 1.16             |
+| 每天所需的存储空间 (TB) | 一天的秒数 | 带宽 (Gb/s) |
+| ----------------------- | ---------- | ----------- |
+| 12.51                   | 86400      | 1.16        |
 
-**出站流量**: 由于 Blob 存储是一种读取密集型存储，因此大部分带宽都用于出站流量。考虑上述假设，我们使用以下公式计算出站流量所需的带宽：
+**出站流量：** 由于 Blob 存储是一种读密集型存储，因此大部分带宽用于出站流量。考虑上述假设，我们使用以下公式计算出站流量所需的带宽：
 
-$$Total_{banwidth}=\frac{No.ofActiveUsers/day*No.ofRequests/user/day*Total_{data_size}}{SecondsInADay}$$
+> $$
+> Total_{banwidth}=\frac{No.ofActiveUsers/day*No.ofRequests/user/day*Total_{data_size}}{SecondsInADay}
+> $$
 
-#### 在YouTube下载视频所需的带宽
+#### YouTube 下载视频所需的带宽
 
-| 每天的活跃用户 | 每个用户的请求数 | 数据大小 (MB) | 所需的带宽 (Gb/s) |
-| --------------------------- | ------------------------ | -------------- | ------------------------- |
-| 5000000                     | 20                       | 50             | 462.96                    |
+| 每天活跃用户数 | 每个用户的请求次数 | 数据大小 (MB) | 所需的带宽 (Gb/s) |
+| -------------- | ------------------ | ------------- | ----------------- |
+| 5000000        | 20                 | 50            | 462.96            |
 
-![QQ截图20230409213420](/img/20-Blob%20Store/QQ%E6%88%AA%E5%9B%BE20230409213420.png)
+![QQ截图20230409213420](/img/20-Blob Store/QQ截图20230409213420.png)
 
-总结 Blob 存储系统仅适用于 YouTube 视频的带宽要求。
+<center>总结 Blob 存储系统仅适用于 YouTube 视频所需的带宽要求</center>
 
-## 我们将使用的构建块
+## 我们将使用的构建模块
 
-我们在 Blob 存储系统的设计中使用以下构建块：
+我们在 Blob 存储系统设计中使用以下构建模块：
 
-![QQ截图20230409213450](/img/20-Blob%20Store/QQ%E6%88%AA%E5%9B%BE20230409213450.png)
+![QQ截图20230409213450](/img/20-Blob Store/QQ截图20230409213450.png)
 
-任务调度程序设计的构建块
+任务调度程序设计的构建模块
 
-- **速率限制器 (Rate Limiter)** 需要一个速率限制器来控制用户与系统的交互。
+- **速率限制器：** 需要速率限制器来控制用户与系统的交互。
+- **负载均衡器：** 需要负载均衡器将请求负载分配到不同的服务器上。
+- **数据库：** 使用数据库存储 Blob 的元数据信息。
+- **监控：** 需要监控来检查存储设备和它们上面的可用空间，以便在需要时及时添加存储。
 
-- **负载均衡器 (Load balancer)** 需要一个负载均衡器，将请求负载分配到不同的服务器上。
-
-- **数据库 (Database):** 用于存储 blobs 的元数据信息。
-
-- **监控系统 (Monitoring):** 监控存储设备和它们上可用的空间，以便及时添加存储空间。
-
-在本课程中，我们讨论了 Blob 存储系统的要求和估算。在接下来的课程中，我们将设计 Blob 存储系统，同时遵循规定的要求。
+在本课程中，我们讨论了 Blob 存储系统的要求和估算。在下一课中，我们将设计 Blob 存储系统，并遵循所列出的要求。
