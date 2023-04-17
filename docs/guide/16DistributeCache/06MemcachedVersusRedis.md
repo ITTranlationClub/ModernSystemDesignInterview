@@ -1,4 +1,7 @@
-# Memcached 与 Redis
+---
+icon: teamwork
+title: Memcached 与 Redis
+---
 
 让我们比较一下 Memcached 和 Redis。
 
