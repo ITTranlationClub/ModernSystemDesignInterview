@@ -41,9 +41,11 @@ title: 容错
 
 ![](https://cdn.jsdelivr.net/gh/gaoxiang15125/BlogImage@master/1676448246130.png)
 
-> [!NOTE] 
->
-> 笔者的话: 实际项目中, 对应 各种中间件的主从备份 日志备份等
+::: info
+
+笔者的话: 实际项目中, 对应 各种中间件的主从备份 日志备份等
+
+:::
 
 #### 检查点
 
