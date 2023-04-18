@@ -1,10 +1,8 @@
 ---
-typora-root-url: ..
+title: 赞助列表
+icon: 设计Blob存储库
 ---
 
-typora-root-url: ..
-
-# 设计Blob存储库
 
 学习如何将某些要求纳入blob存储库的设计中。
 

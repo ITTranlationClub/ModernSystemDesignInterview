@@ -1,4 +1,8 @@
-# Blob Store 设计评估
+---
+title: Blob Store 设计评估
+icon: codestring
+---
+
 
 让我们评估我们的设计如何帮助我们实现我们的要求。
 

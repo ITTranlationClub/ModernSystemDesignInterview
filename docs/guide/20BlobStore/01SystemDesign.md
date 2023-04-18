@@ -1,8 +1,8 @@
 ---
-typora-root-url: ..
+title: 系统设计：Blob 存储
+icon: config2
 ---
-
-# 系统设计：Blob 存储
+ 
 
 介绍 Blob 存储并准备进行设计。
 

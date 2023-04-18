@@ -1,8 +1,7 @@
 ---
-typora-root-url: ..
+title: Rate Limiter的设计要求
+icon: buy
 ---
-
-# Rate Limiter的设计要求
 
 了解Rate Limiter的要求和重要概念。
 

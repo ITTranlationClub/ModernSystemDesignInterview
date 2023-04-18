@@ -1,10 +1,8 @@
 ---
-typora-root-url: ..
+title: 一个Blob存储的设计考虑
+icon: activity
 ---
 
----
-
-# 一个Blob存储的设计考虑
 
 了解关于Blob存储不同设计方面的详细信息。
 

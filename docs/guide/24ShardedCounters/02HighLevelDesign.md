@@ -1,8 +1,8 @@
 ---
-typora-root-url: ..
+title: 分片计数器的高级设计
+icon: youqinglianjie
 ---
 
-# 分片计数器的高级设计
 
 让我们了解和设计分片计数器。
 

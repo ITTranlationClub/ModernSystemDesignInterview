@@ -1,8 +1,8 @@
 ---
-typora-root-url: ..
+title: 分布式任务调度设计的要求
+icon: codestring
 ---
 
-# 分布式任务调度设计的要求
 
 了解任务调度程序的功能和非功能要求。
 

@@ -1,6 +1,6 @@
 ---
 icon: shortcut-fill
-title: 分布式消息队列的设计: 第二部分
+title: 分布式消息队列的设计:第二部分
 ---
 
 

@@ -1,8 +1,8 @@
 ---
-typora-root-url: ..
+icon: versionCompare
+title: 系统设计的RESHADED方法
 ---
 
-# 系统设计的RESHADED方法
 
 让我们使用我们的RESHADED方法来分解一个设计问题。
 

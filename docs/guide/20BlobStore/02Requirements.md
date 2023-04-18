@@ -1,8 +1,7 @@
 ---
-typora-root-url: ..
+title: Blob Store设计的要求
+icon: shortcut-fill
 ---
-
-# Blob Store设计的要求
 
 识别Blob Store的要求并进行估算。
 

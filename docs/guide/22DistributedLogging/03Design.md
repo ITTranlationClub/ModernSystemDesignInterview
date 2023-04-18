@@ -1,8 +1,8 @@
 ---
-typora-root-url: ..
+icon: versionCompare
+title: 分布式日志服务的设计
 ---
 
-# 分布式日志服务的设计
 
 学习如何设计一个分布式日志服务。
 

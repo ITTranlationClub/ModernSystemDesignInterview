@@ -1,4 +1,8 @@
-# Blob存储设计测试
+---
+title: Blob存储设计测试
+icon: youqinglianjie
+---
+
 
 通过测验测试您对blob存储系统设计相关概念的理解。
 

@@ -43,43 +43,43 @@ GSLB使用这些信息来驱动交通决策，并根据每个区域的配置和�
 
 ![QQ截图20230413210003](/img/08-Load Balancers/QQ截图20230413210003.png)
 
-<center>来自ISP 1的用户请求服务的IP地址
+<center>来自ISP 1的用户请求服务的IP地址</center>
 
 ![QQ截图20230413210014](/img/08-Load Balancers/QQ截图20230413210014.png)
 
-<center>DNS响应数据中心1的IP地址
+<center>DNS响应数据中心1的IP地址</center>
 
 ![QQ截图20230413210027](/img/08-Load Balancers/QQ截图20230413210027.png)
 
-<center>用户向数据中心 1发送请求
+<center>用户向数据中心 1发送请求</center>
 
 ![QQ截图20230413210044](/img/08-Load Balancers/QQ截图20230413210044.png)
 
-<center>来自ISP 1的用户在数据中心1中得到服务
+<center>来自ISP 1的用户在数据中心1中得到服务</center>
 
 ![QQ截图20230413210058](/img/08-Load Balancers/QQ截图20230413210058.png)
 
-<center>来自ISP 2的用户请求同一服务的DNS基础架构IP地址
+<center>来自ISP 2的用户请求同一服务的DNS基础架构IP地址</center>
 
 ![QQ截图20230413210112](/img/08-Load Balancers/QQ截图20230413210112.png)
 
-<center>DNS响应并执行GSLB到数据中心2的IP地址
+<center>DNS响应并执行GSLB到数据中心2的IP地址</center>
 
 ![QQ截图20230413210134](/img/08-Load Balancers/QQ截图20230413210134.png)
 
-<center>用户向数据中心2发送请求
+<center>用户向数据中心2发送请求</center>
 
 ![QQ截图20230413210150](/img/08-Load Balancers/QQ截图20230413210150.png)
 
-<center>来自ISP 2的用户在数据中心2得到服务
+<center>来自ISP 2的用户在数据中心2得到服务</center>
 
 ![QQ截图20230413210204](/img/08-Load Balancers/QQ截图20230413210204.png)
 
-<center>来自ISP 3的用户请求同一服务的DNS基础架构IP地址
+<center>来自ISP 3的用户请求同一服务的DNS基础架构IP地址</center>
 
 ![QQ截图20230413210231](/img/08-Load Balancers/QQ截图20230413210231.png)
 
-<center>DNS响应并执行GSLB到数据中心3的IP地址
+<center>DNS响应并执行GSLB到数据中心3的IP地址</center>
 
 ![QQ截图20230413210252](/img/08-Load Balancers/QQ截图20230413210252.png)
 
@@ -89,19 +89,19 @@ GSLB使用这些信息来驱动交通决策，并根据每个区域的配置和�
 
 <center>来自ISP 3的用户在数据中心3得到服务 </center>
 
-![QQ截图20230413210336](/img/08-Load Balancers/QQ截图20230413210336.png)
+![QQ截图20230413210336](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210336.png)
 
 <center>来自ISP 4的用户请求DNS基础结构以获取相同服务的IP地址。</center>  
 
-![QQ截图20230413210355](/img/08-Load Balancers/QQ截图20230413210355.png)
+![QQ截图20230413210355](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210355.png)
 
 <center>DNS以轮询方式响应数据中心1的IP地址，并进行全局服务器负载平衡(GSLB)</center>
 
-![QQ截图20230413210411](/img/08-Load Balancers/QQ截图20230413210411.png)
+![QQ截图20230413210411](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210411.png)
 
 <center>用户向数据中心1发送请求</center> 
 
-![QQ截图20230413210431](/img/08-Load Balancers/QQ截图20230413210431.png)
+![QQ截图20230413210431](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210431.png)
 
 <center>来自ISP 4的用户在数据中心1得到服务</center>  
 

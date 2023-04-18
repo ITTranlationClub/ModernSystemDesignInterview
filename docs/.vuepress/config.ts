@@ -3,21 +3,21 @@ import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 import theme from "./theme.js";
 
 export default defineUserConfig({
-  base: "/fast-request/",
+  base: "/model-system-design/",
 
-  title: "Fast Request",
-  description: "Intellij Restful Fast Request",
+  title: "Model System Design",
+  description: "现代系统设计课程",
 
   head: [
     [
       "link",
       {
         rel: "icon",
-        href: "/fast-request/img/fastRequest.svg",
+        href: "/model-system-design/img/fastRequest.svg",
       },
     ],
     ["script", { src: "//at.alicdn.com/t/c/font_2601581_9pz0ama5329.js" }],
-    ["script", { src: "/fast-request/js/baidu.js" }],
+    ["script", { src: "/model-system-design/js/baidu.js" }],
   ],
 
   markdown: {
@@ -29,9 +29,6 @@ export default defineUserConfig({
   locales: {
     "/": {
       lang: "zh-CN",
-    },
-    "/en/": {
-      lang: "en-US",
     },
   },
 

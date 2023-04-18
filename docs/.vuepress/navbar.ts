@@ -1,52 +1,30 @@
 import { navbar } from "vuepress-theme-hope";
 
-export const enNavbar = navbar([
-  {
-    text: "Get start",
-    link: "/en/guide/getstarted/start",
-    icon: "start1",
-  },
-  {
-    text: "Features",
-    link: "/en/guide/features",
-    icon: "featuresNew",
-  },
-  {
-    text: "Script",
-    link: "/en/guide/script",
-    icon: "code-box-fill",
-  },
-  {
-    text: "What's New",
-    link: "/en/guide/history",
-    icon: "changelog",
-  },
-  {
-    text: "Buy",
-    link: "/en/guide/buy",
-    icon: "buy",
-  },
-  {
-      text: "Version",
-      link: "/en/guide/versionCompare",
-      icon: "versionCompare",
-    },
-    {
-        text: "🔥 Teamwork",
-        link: "/en/guide/teamwork",
-    //     icon: "teamwork",
-      },
-      {
-          text: "More",
-          children:["/en/guide/concatGroup","/guide/faq"]
-        },
-
-]);
 
 export const zhNavbar = navbar([
   {
-    text: "快速开始",
-    link: "/guide/01Introduction/01Introduction",
+    text: "开始学习",
+    link: "/guide/01Introduction/01Introduction.html",
     icon: "start1",
-  }
+  },
+  {
+    text: "面试指导",
+    link: "/guide/02Interviews/01WhatIsInterview.html",
+    icon: "featuresNew",
+  },
+  {
+    text: "构建块模块",
+    link: "/guide/06BuildingBlocks/01BuildingBlocks.html",
+    icon: "code-box-fill",
+  },
+  {
+    text: "系统设计模块",
+    link: "",
+    icon: "tools",
+  },
+  {
+    text: "关于",
+    link: "/guide/about.html",
+    icon: "whats-new",
+  },
 ]);
