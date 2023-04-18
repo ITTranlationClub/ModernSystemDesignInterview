@@ -24,9 +24,11 @@ icon: config2
    
 - 结束语
 
-> [!NOTE]
->
-> 尽管我们尽力保持各章的独立性，但读者会发现按给定顺序阅读它们很有用。
+::: info
+
+尽管我们尽力保持各章的独立性，但读者会发现按给定顺序阅读它们很有用。
+
+:::
 
 ![本课程结构](https://cdn.jsdelivr.net/gh/gaoxiang15125/BlogImage@master/课程章节思维导图.png)
 
