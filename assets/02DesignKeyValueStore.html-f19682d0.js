@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-7375d8b5","path":"/guide/10KeyvalueStore/02DesignKeyValueStore.html","title":"一个键值存储的设计","lang":"zh-CN","frontmatter":{"icon":"code-box-fill","title":"一个键值存储的设计"},"headers":[{"level":2,"title":"需求","slug":"需求","link":"#需求","children":[{"level":3,"title":"功能需求","slug":"功能需求","link":"#功能需求","children":[]},{"level":3,"title":"非功能需求","slug":"非功能需求","link":"#非功能需求","children":[]}]},{"level":2,"title":"假设","slug":"假设","link":"#假设","children":[]},{"level":2,"title":"API设计","slug":"api设计","link":"#api设计","children":[{"level":3,"title":"数据类型","slug":"数据类型","link":"#数据类型","children":[]}]}],"git":{"createdTime":1681706588000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":2}]},"readingTime":{"minutes":4.25,"words":1274},"filePathRelative":"guide/10KeyvalueStore/02DesignKeyValueStore.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};

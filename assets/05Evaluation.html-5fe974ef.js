@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-3927b3d9","path":"/guide/16DistributeCache/05Evaluation.html","title":"分布式缓存设计的评估","lang":"zh-CN","frontmatter":{"icon":"shortcut-fill","title":"分布式缓存设计的评估"},"headers":[{"level":2,"title":"高性能","slug":"高性能","link":"#高性能","children":[]},{"level":2,"title":"可扩展性","slug":"可扩展性","link":"#可扩展性","children":[]},{"level":2,"title":"高可用性","slug":"高可用性","link":"#高可用性","children":[]},{"level":2,"title":"一致性","slug":"一致性","link":"#一致性","children":[]},{"level":2,"title":"负担能力","slug":"负担能力","link":"#负担能力","children":[]},{"level":2,"title":"摘要","slug":"摘要","link":"#摘要","children":[]}],"git":{"createdTime":1681463417000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":3}]},"readingTime":{"minutes":8.09,"words":2427},"filePathRelative":"guide/16DistributeCache/05Evaluation.md","localizedDate":"2023年4月14日"}');
+export {
+  data
+};

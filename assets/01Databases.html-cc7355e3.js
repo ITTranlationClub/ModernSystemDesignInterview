@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-037c66e4","path":"/guide/09Databases/01Databases.html","title":"数据库简介","lang":"zh-CN","frontmatter":{"icon":"start1","title":"数据库简介"},"headers":[{"level":2,"title":"问题陈述","slug":"问题陈述","link":"#问题陈述","children":[{"level":3,"title":"文件存储的限制","slug":"文件存储的限制","link":"#文件存储的限制","children":[]},{"level":3,"title":"解决方案","slug":"解决方案","link":"#解决方案","children":[]}]},{"level":2,"title":"优势","slug":"优势","link":"#优势","children":[]},{"level":2,"title":"我们如何解释数据库？","slug":"我们如何解释数据库","link":"#我们如何解释数据库","children":[]}],"git":{"createdTime":1681706588000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":2}]},"readingTime":{"minutes":3.74,"words":1123},"filePathRelative":"guide/09Databases/01Databases.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};

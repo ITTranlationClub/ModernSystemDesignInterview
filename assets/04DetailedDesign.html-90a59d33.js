@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-2e9b2b68","path":"/guide/16DistributeCache/04DetailedDesign.html","title":"分布式缓存的详细设计","lang":"zh-CN","frontmatter":{"icon":"others1","title":"分布式缓存的详细设计"},"headers":[{"level":2,"title":"查找并删除限制","slug":"查找并删除限制","link":"#查找并删除限制","children":[{"level":3,"title":"维护缓存服务器列表","slug":"维护缓存服务器列表","link":"#维护缓存服务器列表","children":[]},{"level":3,"title":"提高可用性","slug":"提高可用性","link":"#提高可用性","children":[]},{"level":3,"title":"缓存服务器的内部结构","slug":"缓存服务器的内部结构","link":"#缓存服务器的内部结构","children":[]}]},{"level":2,"title":"详细设计","slug":"详细设计","link":"#详细设计","children":[]}],"git":{"createdTime":1681463417000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":3}]},"readingTime":{"minutes":6.01,"words":1802},"filePathRelative":"guide/16DistributeCache/04DetailedDesign.md","localizedDate":"2023年4月14日"}');
+export {
+  data
+};

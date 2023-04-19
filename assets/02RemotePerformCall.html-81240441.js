@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-81697716","path":"/guide/03Abstractions/02RemotePerformCall.html","title":"网络抽象:远程过程调用","lang":"zh-CN","frontmatter":{"icon":"license","title":"网络抽象:远程过程调用"},"headers":[{"level":2,"title":"什么是 RPC？","slug":"什么是-rpc","link":"#什么是-rpc","children":[]},{"level":2,"title":"RPC 是如何工作的？","slug":"rpc-是如何工作的","link":"#rpc-是如何工作的","children":[]},{"level":2,"title":"摘要","slug":"摘要","link":"#摘要","children":[]}],"git":{"createdTime":1681384849000,"updatedTime":1681828541000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":4},{"name":"zhangjiahao","email":"1643938737@qq.com","commits":1}]},"readingTime":{"minutes":3.85,"words":1155},"filePathRelative":"guide/03Abstractions/02RemotePerformCall.md","localizedDate":"2023年4月13日"}');
+export {
+  data
+};

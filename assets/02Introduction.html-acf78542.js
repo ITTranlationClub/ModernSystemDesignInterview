@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-9dbc20b8","path":"/guide/18Pubsub/02Introduction.html","title":"介绍Pub-sub系统","lang":"zh-CN","frontmatter":{"icon":"start1","title":"介绍Pub-sub系统"},"headers":[{"level":2,"title":"Pub-sub的用例","slug":"pub-sub的用例","link":"#pub-sub的用例","children":[]},{"level":2,"title":"需求","slug":"需求","link":"#需求","children":[{"level":3,"title":"功能需求","slug":"功能需求","link":"#功能需求","children":[]},{"level":3,"title":"非功能需求","slug":"非功能需求","link":"#非功能需求","children":[]}]},{"level":2,"title":"API设计","slug":"api设计","link":"#api设计","children":[]},{"level":2,"title":"我们将使用的构建块","slug":"我们将使用的构建块","link":"#我们将使用的构建块","children":[]}],"git":{"createdTime":1681706588000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":2}]},"readingTime":{"minutes":5.89,"words":1766},"filePathRelative":"guide/18Pubsub/02Introduction.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};

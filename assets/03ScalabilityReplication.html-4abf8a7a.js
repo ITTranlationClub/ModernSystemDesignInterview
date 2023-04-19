@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-ae759124","path":"/guide/10KeyvalueStore/03ScalabilityReplication.html","title":"确保可扩展性和复制","lang":"zh-CN","frontmatter":{"icon":"tools","title":"确保可扩展性和复制"},"headers":[{"level":2,"title":"增加可扩展性","slug":"增加可扩展性","link":"#增加可扩展性","children":[{"level":3,"title":"一致性哈希","slug":"一致性哈希","link":"#一致性哈希","children":[]}]},{"level":2,"title":"数据复制","slug":"数据复制","link":"#数据复制","children":[{"level":3,"title":"主次关系","slug":"主次关系","link":"#主次关系","children":[]},{"level":3,"title":"对等关系","slug":"对等关系","link":"#对等关系","children":[]}]}],"git":{"createdTime":1681706588000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":2}]},"readingTime":{"minutes":11.02,"words":3307},"filePathRelative":"guide/10KeyvalueStore/03ScalabilityReplication.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};

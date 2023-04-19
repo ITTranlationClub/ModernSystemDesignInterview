@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-3c7a9ce0","path":"/guide/19RateLimiter/01SystemDesign.html","title":"系统设计：速率限制器","lang":"zh-CN","frontmatter":{"title":"系统设计：速率限制器","icon":"activity"},"headers":[{"level":2,"title":"什么是速率限制器？","slug":"什么是速率限制器","link":"#什么是速率限制器","children":[]},{"level":2,"title":"为什么需要速率限制器？","slug":"为什么需要速率限制器","link":"#为什么需要速率限制器","children":[]},{"level":2,"title":"我们将如何设计速率限制器？","slug":"我们将如何设计速率限制器","link":"#我们将如何设计速率限制器","children":[]}],"git":{"createdTime":1681706676000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":2},{"name":"zhangjiahao","email":"1643938737@qq.com","commits":1}]},"readingTime":{"minutes":2.87,"words":862},"filePathRelative":"guide/19RateLimiter/01SystemDesign.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};

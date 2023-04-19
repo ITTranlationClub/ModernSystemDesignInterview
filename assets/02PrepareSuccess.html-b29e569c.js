@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-19841e68","path":"/guide/02Interviews/02PrepareSuccess.html","title":"如何为成功做准备","lang":"zh-CN","frontmatter":{"icon":"codestring","title":"如何为成功做准备"},"headers":[{"level":2,"title":"本课程目标","slug":"本课程目标","link":"#本课程目标","children":[]},{"level":2,"title":"技术博客","slug":"技术博客","link":"#技术博客","children":[]},{"level":2,"title":"询问系统为何有效 知其然知其所以然","slug":"询问系统为何有效-知其然知其所以然","link":"#询问系统为何有效-知其然知其所以然","children":[{"level":3,"title":"正确的方向","slug":"正确的方向","link":"#正确的方向","children":[]}]},{"level":2,"title":"模拟面试","slug":"模拟面试","link":"#模拟面试","children":[]}],"git":{"createdTime":1681701981000,"updatedTime":1681828541000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":3},{"name":"zhangjiahao","email":"1643938737@qq.com","commits":1}]},"readingTime":{"minutes":4.31,"words":1293},"filePathRelative":"guide/02Interviews/02PrepareSuccess.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};

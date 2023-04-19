@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-697578dc","path":"/guide/21DistributedSearch/01SystemDesign.html","title":"系统设计：分布式搜索","lang":"zh-CN","frontmatter":{"title":"系统设计：分布式搜索","icon":"start1"},"headers":[{"level":2,"title":"为什么我们需要搜索系统？","slug":"为什么我们需要搜索系统","link":"#为什么我们需要搜索系统","children":[]},{"level":2,"title":"什么是搜索系统？","slug":"什么是搜索系统","link":"#什么是搜索系统","children":[]},{"level":2,"title":"我们将如何设计分布式搜索系统？","slug":"我们将如何设计分布式搜索系统","link":"#我们将如何设计分布式搜索系统","children":[]}],"git":{"createdTime":1681706676000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":2},{"name":"zhangjiahao","email":"1643938737@qq.com","commits":1}]},"readingTime":{"minutes":2.88,"words":863},"filePathRelative":"guide/21DistributedSearch/01SystemDesign.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};

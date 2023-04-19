@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-8ba8a118","path":"/guide/21DistributedSearch/05SclingSearchAndIndexing.html","title":"扩展搜索和索引","lang":"zh-CN","frontmatter":{"title":"扩展搜索和索引","icon":"bilibili"},"headers":[{"level":2,"title":"建议设计的问题","slug":"建议设计的问题","link":"#建议设计的问题","children":[]},{"level":2,"title":"解决方案","slug":"解决方案","link":"#解决方案","children":[]},{"level":2,"title":"分离索引和搜索","slug":"分离索引和搜索","link":"#分离索引和搜索","children":[]},{"level":2,"title":"索引解释","slug":"索引解释","link":"#索引解释","children":[]},{"level":2,"title":"摘要","slug":"摘要","link":"#摘要","children":[]}],"git":{"createdTime":1681469436000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":3}]},"readingTime":{"minutes":6.43,"words":1928},"filePathRelative":"guide/21DistributedSearch/05SclingSearchAndIndexing.md","localizedDate":"2023年4月14日"}');
+export {
+  data
+};

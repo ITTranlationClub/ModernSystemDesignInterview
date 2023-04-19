@@ -1,0 +1,4 @@
+const data = JSON.parse('{"key":"v-e8493db0","path":"/guide/21DistributedSearch/06Evaluation.html","title":"分布式搜索设计的评估","lang":"zh-CN","frontmatter":{"title":"分布式搜索设计的评估","icon":"dataMapping"},"headers":[{"level":2,"title":"可用性","slug":"可用性","link":"#可用性","children":[]},{"level":2,"title":"可扩展性","slug":"可扩展性","link":"#可扩展性","children":[]},{"level":2,"title":"大数据快速搜索","slug":"大数据快速搜索","link":"#大数据快速搜索","children":[]},{"level":2,"title":"降低成本","slug":"降低成本","link":"#降低成本","children":[]},{"level":2,"title":"结论","slug":"结论","link":"#结论","children":[]}],"git":{"createdTime":1681706676000,"updatedTime":1681881346000,"contributors":[{"name":"gaoxiang","email":"630268696@qq.com","commits":2},{"name":"zhangjiahao","email":"1643938737@qq.com","commits":1}]},"readingTime":{"minutes":2.19,"words":658},"filePathRelative":"guide/21DistributedSearch/06Evaluation.md","localizedDate":"2023年4月17日"}');
+export {
+  data
+};
