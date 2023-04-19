@@ -21,3 +21,6 @@
 
 <img src="https://cdn.jsdelivr.net/gh/gaoxiang15125/BlogImage@master/dva.jpg" width='250' height='250' />
 
+远行的过路人, 如果有兴趣, 希望您可以加入我们:
+
+认领一个章节 -> 学习一个系统的设计思想 -> 献出您的一片光
