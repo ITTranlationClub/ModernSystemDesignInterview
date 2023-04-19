@@ -1,6 +1,6 @@
 ---
-icon: 系统设计：分片计数器
-title: 群聊
+icon: activity
+title: 系统设计：分片计数器
 ---
 
 
@@ -12,13 +12,13 @@ title: 群聊
 
 上述情况显示了一个简单的计数操作如何变得难以精确和高效地管理。下图显示了在2021年8月的24小时内由数百万用户观看的YouTube视频：
 
-![QQ截图20230410155710](/img/23-Distributed Task Scheduler/QQ截图20230410155710.png)
+![QQ截图20230410155710](/img/23-Distributed%20Task%20Scheduler/QQ%E6%88%AA%E5%9B%BE20230410155710.png)
 
 <center>24小时内YouTube视频的观看次数</center>
 
 平均每秒有六千条推文在Twitter上发送，这相当于每分钟360,000条推文和每天约5亿条推文。处理这些5亿条推文上的数十亿个赞是一项具有挑战性的任务。以下表格显示了截至2022年一天中最受欢迎的推文：
 
-![QQ截图20230410155922](/img/23-Distributed Task Scheduler/QQ截图20230410155922.png)
+![QQ截图20230410155922](/img/23-Distributed%20Task%20Scheduler/QQ%E6%88%AA%E5%9B%BE20230410155922.png)
 
 <center>单日最受欢迎的推文</center>
 
