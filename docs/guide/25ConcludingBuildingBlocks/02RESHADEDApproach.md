@@ -10,7 +10,9 @@ title: 系统设计的RESHADED方法
 
 系统设计问题并不是直截了当的。我们没有一个通用公式可以用于所有设计问题。但是，我们可以使用一种高级共同策略来为任何设计问题制定一个良好的解决方案。我们称之为**RESHADED**方法。通常，我们的所有设计问题都是通过记住这个策略来解决的。RESHADED是一个指南，我们将使用它来解决不同的设计问题。虽然没有一种“一刀切”的解决方案，但使用这种方法将具有其优势，我们将在下面看到。
 
-![QQ截图20230410162735](/img/25-Concluding the Building Blocks Discussion/QQ截图20230410162735.png)
+
+![QQ截图20230410162735](/img/25-Concluding%20the%20Building%20Blocks%20Discussion/QQ%E6%88%AA%E5%9B%BE20230410162735.png)
+
 
 <center>RESHADED方法中每个字母的解释</center>
 
