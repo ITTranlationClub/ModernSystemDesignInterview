@@ -1,7 +1,7 @@
 import { defineUserConfig } from "vuepress";
 import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 import theme from "./theme.js";
-import MarkdownItKatex from "markdown-it-katex";
+import MarkdownItMathjax3 from "markdown-it-mathjax3";
 
 export default defineUserConfig({
   base: "/model-system-design/",
@@ -25,7 +25,7 @@ export default defineUserConfig({
   
   extendsMarkdown: (md) => {
 	  md.set({ html: true });
-      md.use(MarkdownItKatex);
+      md.use(MarkdownItMathjax3);
   },
 
   markdown: {

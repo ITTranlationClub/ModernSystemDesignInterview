@@ -39,7 +39,7 @@ title: 监控系统的设计
 - **数据收集器服务**：此服务从每个服务中获取相关数据并将其保存在存储中。
 - **查询服务**：这是一个 API，可以查询时间序列数据库并返回相关信息。
 
-![QQ截图20230408200741.png](/img/14-Monitor Server-side Errors/QQ截图20230408200741.png)
+![QQ截图20230408200741.png](/img/14-Monitor%20Server-side%20Errors/QQ%E6%88%AA%E5%9B%BE20230408200741.png)
 
 <center>监控系统的高级设计</center>
 

@@ -22,7 +22,7 @@ title: 资源估算示例
 
 <h4 align = "center">估算需要的服务器数量</h4> 
 
-![搜狗截图20230406180650](img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180650.png)
+![搜狗截图20230406180650](/img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180650.png)
 
 <center>详细计算如下</center>
 
@@ -108,7 +108,7 @@ $$
 
 <h4 align="center">估算存储需求</h4>
 
-![搜狗截图20230406180846](img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180846.png)
+![搜狗截图20230406180846](/img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180846.png)
 
 <center>展示详细计算</center>
 
@@ -148,7 +148,7 @@ $$
 365*128TB=46.72PB
 $$
 
-![搜狗截图20230406180903](img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180903.png)
+![搜狗截图20230406180903](/img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180903.png)
 
 <center>Twitter在一年内需要的总存储空间</center>
 
@@ -181,7 +181,7 @@ $$
 
 #### 估算带宽需求
 
-![搜狗截图20230406180916](img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180916.png)
+![搜狗截图20230406180916](/img/05-Back-of-the-envelope%20Calculations/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20230406180916.png)
 
 <center>显示详细计算</center>
 

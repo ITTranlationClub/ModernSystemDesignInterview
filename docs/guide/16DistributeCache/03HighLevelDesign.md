@@ -19,7 +19,7 @@ title: 分布式缓存的高级设计
 - **插入数据**：使用分布式缓存系统的用户必须能够向缓存中插入一个条目。
 - **检索数据**：用户应该能够检索与特定键对应的数据。
 
-![](https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/20230217120120.png)
+![](/img/16-Distributed%20Cache/20230217120120.png)
 
 ### 非功能性需求
 
@@ -112,7 +112,7 @@ retrieve(key)
 
 下图描述了我们的高级设计：
 
-![](https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/20230217120210.png)
+![](/img/16-Distributed%20Cache/20230217120210.png)
 
 此高级设计中的主要组件如下：
 

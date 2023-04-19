@@ -31,7 +31,7 @@ GSLB服务可以安装在本地或通过负载平衡作为服务（LBaaS）获�
 
 GSLB使用这些信息来驱动交通决策，并根据每个区域的配置和监视信息转发交通负载。
 
-![QQ截图20230406211013](/img/08-Load Balancers/QQ截图20230406211013.png)
+![QQ截图20230406211013](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230406211013.png)
 
 <center>使用全局负载平衡将用户请求发送到不同的区域</center>
 
@@ -39,69 +39,69 @@ GSLB使用这些信息来驱动交通决策，并根据每个区域的配置和�
 
 ### DNS中的负载均衡
 
-我们知道DNS可以对DNS查询响应多个IP地址。在[DNS](https://www.educative.io/collection/page/10370001/4941429335392256/5728619204182016)的课程中，我们讨论了通过查看`nslookup`的输出，在DNS中进行负载平衡的可能性。DNS使用简单的技术，通过重新排列每个DNS查询的IP地址列表来响应。因此，不同的用户获得重新排序的IP地址列表，导致用户访问不同的服务器来满足其请求。这样，DNS可以在不同的数据中心上分配请求负载。这就是执行GSLB。特别地，DNS使用轮询进行负载平衡，如下所示：
+我们知道DNS可以对DNS查询响应多个IP地址。在 DNS 的课程中，我们讨论了通过查看`nslookup`的输出，在DNS中进行负载平衡的可能性。DNS使用简单的技术，通过重新排列每个DNS查询的IP地址列表来响应。因此，不同的用户获得重新排序的IP地址列表，导致用户访问不同的服务器来满足其请求。这样，DNS可以在不同的数据中心上分配请求负载。这就是执行GSLB。特别地，DNS使用轮询进行负载平衡，如下所示：
 
-![QQ截图20230413210003](/img/08-Load Balancers/QQ截图20230413210003.png)
+![QQ截图20230413210003](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210003.png)
 
 <center>来自ISP 1的用户请求服务的IP地址</center>
 
-![QQ截图20230413210014](/img/08-Load Balancers/QQ截图20230413210014.png)
+![QQ截图20230413210014](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210014.png)
 
 <center>DNS响应数据中心1的IP地址</center>
 
-![QQ截图20230413210027](/img/08-Load Balancers/QQ截图20230413210027.png)
+![QQ截图20230413210027](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210027.png)
 
 <center>用户向数据中心 1发送请求</center>
 
-![QQ截图20230413210044](/img/08-Load Balancers/QQ截图20230413210044.png)
+![QQ截图20230413210044](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210044.png)
 
 <center>来自ISP 1的用户在数据中心1中得到服务</center>
 
-![QQ截图20230413210058](/img/08-Load Balancers/QQ截图20230413210058.png)
+![QQ截图20230413210058](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210058.png)
 
 <center>来自ISP 2的用户请求同一服务的DNS基础架构IP地址</center>
 
-![QQ截图20230413210112](/img/08-Load Balancers/QQ截图20230413210112.png)
+![QQ截图20230413210112](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210112.png)
 
 <center>DNS响应并执行GSLB到数据中心2的IP地址</center>
 
-![QQ截图20230413210134](/img/08-Load Balancers/QQ截图20230413210134.png)
+![QQ截图20230413210134](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210134.png)
 
 <center>用户向数据中心2发送请求</center>
 
-![QQ截图20230413210150](/img/08-Load Balancers/QQ截图20230413210150.png)
+![QQ截图20230413210150](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210150.png)
 
 <center>来自ISP 2的用户在数据中心2得到服务</center>
 
-![QQ截图20230413210204](/img/08-Load Balancers/QQ截图20230413210204.png)
+![QQ截图20230413210204](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210204.png)
 
 <center>来自ISP 3的用户请求同一服务的DNS基础架构IP地址</center>
 
-![QQ截图20230413210231](/img/08-Load Balancers/QQ截图20230413210231.png)
+![QQ截图20230413210231](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210231.png)
 
 <center>DNS响应并执行GSLB到数据中心3的IP地址</center>
 
-![QQ截图20230413210252](/img/08-Load Balancers/QQ截图20230413210252.png)
+![QQ截图20230413210252](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210252.png)
 
 <center>用户向数据中心3发送请求</center>
 
-![QQ截图20230413210315](/img/08-Load Balancers/QQ截图20230413210315.png)
+![QQ截图20230413210315](g)
 
 <center>来自ISP 3的用户在数据中心3得到服务 </center>
 
-![QQ截图20230413210336](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210336.png)
+![QQ截图](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210336.png)
 
 <center>来自ISP 4的用户请求DNS基础结构以获取相同服务的IP地址。</center>  
 
-![QQ截图20230413210355](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210355.png)
+![QQ截图20230413210355](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210355.png)
 
 <center>DNS以轮询方式响应数据中心1的IP地址，并进行全局服务器负载平衡(GSLB)</center>
 
-![QQ截图20230413210411](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210411.png)
+![QQ截图20230413210411](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210411.png)
 
 <center>用户向数据中心1发送请求</center> 
 
-![QQ截图20230413210431](%2Fimg%2F08-Load%20Balancers%2FQQ%E6%88%AA%E5%9B%BE20230413210431.png)
+![QQ截图20230413210431](/img/08-Load%20Balancers/QQ%E6%88%AA%E5%9B%BE20230413210431.png)
 
 <center>来自ISP 4的用户在数据中心1得到服务</center>  
 
@@ -110,7 +110,12 @@ GSLB使用这些信息来驱动交通决策，并根据每个区域的配置和�
 - 因为轮询负载平衡算法不考虑任何端服务器崩溃，所以它会继续分配崩溃服务器的IP地址，直到缓存条目的TTL过期。在这种情况下，服务的可用性可能会受到DNS级别的负载平衡的影响。  
 
 尽管存在限制，轮询仍然被许多DNS服务提供商广泛使用。此外，DNS使用短TTL的缓存条目来在不同的数据中心之间进行有效的负载平衡。  
-> **注意：** DNS不是唯一的GSLB形式。应用交付控制器（ADC）和基于云的负载平衡（稍后讨论）是更好的GSLB方法。  
+
+::: danger
+
+**注意：** DNS不是唯一的GSLB形式。应用交付控制器（ADC）和基于云的负载平衡（稍后讨论）是更好的GSLB方法。  
+
+:::
 
 **什么是 ADC**  
 
@@ -138,16 +143,19 @@ DNS在负载平衡方面发挥着重要作用，但它遇到以下限制：
 
 它们的行为类似于反向代理，并尽最大努力将传入的请求分配给可用服务器池。传入的客户端请求无缝连接到使用虚拟IP地址（VIP）的LB。  
 
->
-> 问题：
->
-> DNS是否可以被认为是全局服务器负载平衡（GSLB）？  
->
-> 答案:
->
-> 是的，实际上有两种全局流量管理（GTM）的方法：
->
-> - 通过应用交付控制器（ADC）实现的GTM：一些ADC实现了全局负载均衡（GSLB）。在这种情况下，ADC实时查看主机服务器，并根据数据中心的健康状况和容量转发请求。
-> - 通过DNS实现的GTM：DNS通过分析客户端的IP位置来进行全局负载均衡。对于每个请求域名（例如 www.educative.io ）的用户IP，基于DNS的GSLB会将IP地址转发到地理位置更接近请求IP位置的数据中心。
->
-> 在下一课中，我们将探讨一些本地负载平衡器的高级细节。
+::: tip
+
+问题：
+
+DNS是否可以被认为是全局服务器负载平衡（GSLB）？  
+
+答案:
+
+是的，实际上有两种全局流量管理（GTM）的方法：
+
+- 通过应用交付控制器（ADC）实现的GTM：一些ADC实现了全局负载均衡（GSLB）。在这种情况下，ADC实时查看主机服务器，并根据数据中心的健康状况和容量转发请求。
+- 通过DNS实现的GTM：DNS通过分析客户端的IP位置来进行全局负载均衡。对于每个请求域名（例如 www.educative.io ）的用户IP，基于DNS的GSLB会将IP地址转发到地理位置更接近请求IP位置的数据中心。
+
+在下一课中，我们将探讨一些本地负载平衡器的高级细节。
+
+:::

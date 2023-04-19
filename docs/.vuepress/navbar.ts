@@ -19,7 +19,7 @@ export const zhNavbar = navbar([
   },
   {
     text: "系统设计模块",
-    link: "",
+    link: "/guide/softwareBuild.html",
     icon: "tools",
   },
   {

@@ -54,13 +54,13 @@ export default hopeTheme({
         notice: [
           {
             path: "/",
-            title: "ji",
+            title: "最新计划",
             content:
-              '<ul><li>重量级更新：团队协作</li></ul><div class="addthis_inline_follow_toolbox_qssu"></div>',
+              '<ul><li>系统设计模块即将更新</li><li>如何设计短链系统</li><li>如何设计\'知乎\'</ul>',
             actions: [
               {
-                text: "了解详情→",
-                link: "/guide/history.html#_2023-1-3",
+                text: "马上安排",
+                link: "/guide/about.html",
                 type: "primary",
               },
             ],

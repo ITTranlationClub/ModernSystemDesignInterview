@@ -15,7 +15,7 @@ title: 在监控系统中可视化数据
 
 下面是一个显示服务器状态的热图。
 
-![QQ截图20230408201524](/img/14-Monitor Server-side Errors/QQ截图20230408201524.png)
+![QQ截图20230408201524](/img/14-Monitor%20Server-side%20Errors/QQ%E6%88%AA%E5%9B%BE20230408201524.png)
 
 <center>使用热图查看数据中心中的服务器</center>
 

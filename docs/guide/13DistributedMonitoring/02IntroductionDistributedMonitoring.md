@@ -11,65 +11,65 @@ title: 介绍分布式监控
 
 让我们考虑这样一个场景：用户上传一个名为“intro-to-system-design”的视频到YouTube。位于服务器A上的UI服务获取视频信息并将数据传递给位于服务器B上的服务2。服务2在数据库中创建一个条目并将视频存储在blob存储中。服务器C中的另一个服务3管理数据库X和Y的复制和同步。
 
-在这种情况下，由于某些错误，服务3失败了，并且服务2在数据库X中创建了一个条目。数据库X崩溃，获取视频的请求被路由到数据库Y。用户想播放“intro-to-system-design”视频，但是将显示“视频未找到”的错误。
+在这种情况下，由于某些错误，服务3失败了，并且服务2在数据库X中创建了一个条目。数据库X崩溃，获取视频的请求被路由到数据库Y。用户想播放 “intro-to-system-design” 视频，但是将显示“视频未找到”的错误。
 
-![QQ截图20230414163317](/img/13-Distributed Monitoring/QQ截图20230414163317.png)
+![QQ截图20230414163317](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163317.png)
 
 <center>用户在YouTube上上传视频</center>
 
-![QQ截图20230414163333](/img/13-Distributed Monitoring/QQ截图20230414163333.png)
+![QQ截图20230414163333](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163333.png)
 
 <center>位于服务器A上的UI服务获取视频信息并将数据传递给位于服务器B上的服务2</center>
 
-![QQ截图20230414163352](/img/13-Distributed Monitoring/QQ截图20230414163352.png)
+![QQ截图20230414163352](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163352.png)
 
 <center>服务2在数据库中创建一个条目并将视频存储在blob存储中</center>
 
-![QQ截图20230414163410](/img/13-Distributed Monitoring/QQ截图20230414163410.png)
+![QQ截图20230414163410](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163410.png)
 
 <center>服务器C中的服务3管理数据库X和Y的复制和同步</center>
 
-![QQ截图20230414163430](/img/13-Distributed Monitoring/QQ截图20230414163430.png)
+![QQ截图20230414163430](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163430.png)
 
 <center>由于某些错误，服务3失败了，服务2在数据库X中创建了一个条目</center>
 
-![QQ截图20230414163445](/img/13-Distributed Monitoring/QQ截图20230414163445.png)
+![QQ截图20230414163445](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163445.png)
 
 <center>数据库X崩溃了</center>
 
-![QQ截图20230414163501](/img/13-Distributed Monitoring/QQ截图20230414163501.png)
+![QQ截图20230414163501](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163501.png)
 
 <center>数据库Y中没有“intro-to-system-design”视频的条目</center>
 
-![QQ截图20230414163518](/img/13-Distributed Monitoring/QQ截图20230414163518.png)
+![QQ截图20230414163518](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163518.png)
 
 <center>用户请求获取视频</center>
 
-![QQ截图20230414163532](/img/13-Distributed Monitoring/QQ截图20230414163532.png)
+![QQ截图20230414163532](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163532.png)
 
 <center>服务器A上的UI服务将读取请求转发到服务器B</center>
 
-![QQ截图20230414163546](/img/13-Distributed Monitoring/QQ截图20230414163546.png)
+![QQ截图20230414163546](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163546.png)
 
 <center>数据库X崩溃了</center>
 
-![QQ截图20230414163559](/img/13-Distributed Monitoring/QQ截图20230414163559.png)
+![QQ截图20230414163559](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163559.png)
 
 <center>视频无法获取，因为数据库已经停止</center>
 
-![QQ截图20230414163619](/img/13-Distributed Monitoring/QQ截图20230414163619.png)
+![QQ截图20230414163619](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163619.png)
 
 <center>请求被转发到数据库Y</center>
 
-![QQ截图20230414163633](/img/13-Distributed Monitoring/QQ截图20230414163633.png)
+![QQ截图20230414163633](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163633.png)
 
 <center>数据库Y中没有这个视频的任何条目</center>
 
-![QQ截图20230414163646](/img/13-Distributed Monitoring/QQ截图20230414163646.png)
+![QQ截图20230414163646](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163646.png)
 
 <center>返回“Video not found”的响应到UI服务器</center>
 
-![QQ截图20230414163748](/img/13-Distributed Monitoring/QQ截图20230414163748.png)
+![QQ截图20230414163748](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414163748.png)
 
 <center>将“Video not found”的响应返回给用户</center>
 
@@ -83,7 +83,7 @@ IT基础设施已经广泛分布在全球范围内。下文给出了主要云服
 
 根据亚马逊表示，2021年12月7日，“在太平洋标准时间上午7:30，主要AWS网络中托管的AWS服务之一的自动扩容活动触发了大量位于内部网络中的客户端的意外行为。这导致连接活动的大量激增使得连接内部网络和主要AWS网络之间的网络设备不堪重负，结果导致这些网络之间的通信延迟。这些延迟增加了这些网络之间通信中的延迟和错误，导致更多的连接尝试和重试。这导致连接两个网络的设备上出现持续的拥塞和性能问题。”根据估计，亚马逊的停机时间成本是每分钟66240美元。
 
-![QQ截图20230408195654](/img/13-Distributed Monitoring/QQ截图20230408195654.png)
+![QQ截图20230408195654](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230408195654.png)
 
 <center>AWS、Azure 和 Google 在全球分布式数据中心概览</center>
 
@@ -93,55 +93,55 @@ IT基础设施已经广泛分布在全球范围内。下文给出了主要云服
 
 Educative 的开发人员如何知道学习者面临这个错误？
 
-![QQ截图20230414164158](/img/13-Distributed Monitoring/QQ截图20230414164158.png)
+![QQ截图20230414164158](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164158.png)
 
 <center>学习者开始连接 Educative</center>
 
-![QQ截图20230414164209](/img/13-Distributed Monitoring/QQ截图20230414164209.png)
+![QQ截图20230414164209](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164209.png)
 
 <center>Educative 的前端服务器发起容器分配请求</center>
 
-![QQ截图20230414164222](/img/13-Distributed Monitoring/QQ截图20230414164222.png)
+![QQ截图20230414164222](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164222.png)
 
 <center>服务器 B 上的服务 2 分配一个容器，并通知服务器 A 上的服务 1</center>
 
-![QQ截图20230414164232](/img/13-Distributed Monitoring/QQ截图20230414164232.png)
+![QQ截图20230414164232](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164232.png)
 
 <center>服务器 A 上的服务 1 确认分配</center>
 
-![QQ截图20230414164243](/img/13-Distributed Monitoring/QQ截图20230414164243.png)
+![QQ截图20230414164243](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164243.png)
 
 <center>服务器 C 上的服务 3 收到为学习者更新 UI 的请求</center>
 
-![QQ截图20230414164256](/img/13-Distributed Monitoring/QQ截图20230414164256.png)
+![QQ截图20230414164256](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164256.png)
 
 <center>服务器 C 上的服务 3 为学习者更新 UI</center>
 
-![QQ截图20230414164308](/img/13-Distributed Monitoring/QQ截图20230414164308.png)
+![QQ截图20230414164308](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164308.png)
 
 <center>连接成功建立</center>
 
-![QQ截图20230414164319](/img/13-Distributed Monitoring/QQ截图20230414164319.png)
+![QQ截图20230414164319](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164319.png)
 
 <center>学习者再次开始连接 Educative</center>
 
-![QQ截图20230414164330](/img/13-Distributed Monitoring/QQ截图20230414164330.png)
+![QQ截图20230414164330](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164330.png)
 
 <center>Educative 的前端服务器发起容器分配请求</center>
 
-![QQ截图20230414164352](/img/13-Distributed Monitoring/QQ截图20230414164352.png)
+![QQ截图20230414164352](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164352.png)
 
 <center>由于某种原因，服务器 B 失败</center>
 
-![QQ截图20230414164404](/img/13-Distributed Monitoring/QQ截图20230414164404.png)
+![QQ截图20230414164404](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164404.png)
 
 <center>前端服务器等待学习者的 UI 更新</center>
 
-![QQ截图20230414164418](/img/13-Distributed Monitoring/QQ截图20230414164418.png)
+![QQ截图20230414164418](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164418.png)
 
 <center>请求超时</center>
 
-![QQ截图20230414164431](/img/13-Distributed Monitoring/QQ截图20230414164431.png)
+![QQ截图20230414164431](/img/13-Distributed%20Monitoring/QQ%E6%88%AA%E5%9B%BE20230414164431.png)
 
 <center>无法建立学习者的连接</center>
 
