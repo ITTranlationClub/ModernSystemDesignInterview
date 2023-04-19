@@ -1,6 +1,7 @@
 import { defineUserConfig } from "vuepress";
 import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 import theme from "./theme.js";
+import MarkdownItKatex from "markdown-it-katex";
 
 export default defineUserConfig({
   base: "/model-system-design/",
@@ -18,7 +19,14 @@ export default defineUserConfig({
     ],
     ["script", { src: "//at.alicdn.com/t/c/font_2601581_9pz0ama5329.js" }],
     ["script", { src: "/model-system-design/js/baidu.js" }],
+	['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css' }],
+	['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }]
   ],
+  
+  extendsMarkdown: (md) => {
+	  md.set({ html: true });
+      md.use(MarkdownItKatex);
+  },
 
   markdown: {
     code: {
