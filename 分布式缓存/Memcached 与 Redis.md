@@ -36,7 +36,7 @@ delete <key>[<time>] ...
 
 在 Facebook，Memcached 位于 MySQL 数据库和 Web 层之间，该层使用分布在 800 多台服务器上的大约 28 TB 的 RAM（截至 2013 年）。通过近似最近最少使用 (LRU) 逐出策略，Facebook 能够实现 95% 的缓存命中率。
 
-下图显示了 Facebook 缓存架构的高级设计。正如我们所看到的，在 Web 层发出的总共 5000 万个请求中，只有 250 万个请求到达了持久层。
+下图显示了 Facebook 缓存架构的高级设计。正如我们所看到的，在 Web 层发出的总共 5000 万个请求中，只有 250 万个请求到达了持久层。 
 
 ![](https://gitee.com/gaoxiang15125/pictureBed/raw/master/img/20230217122633.png)
 
